@@ -10,6 +10,7 @@ import java.util.List;
                 @UniqueConstraint(name="url_unique", columnNames = "url")
         }
 )
+
 public class Image {
     @Id
     @SequenceGenerator(
@@ -30,20 +31,29 @@ public class Image {
     private Integer width;
     @Column(nullable = false)
     private Integer height;
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(name="image_label",
+            joinColumns = {
+                    @JoinColumn(name="imageId",referencedColumnName = "imageId")
+            },
+            inverseJoinColumns =  {
+                    @JoinColumn(name="labelId",referencedColumnName = "labelId")
 
-    @OneToMany
+            }
+    )
     private List<Label> labels;
 
     public Image() {
     }
 
-    public Image(Long imageId, String url, LocalDate uploadedAt, String analysis_service, Integer width, Integer height) {
+    public Image(Long imageId, String url, LocalDate uploadedAt, String analysis_service, Integer width, Integer height, List<Label> labels) {
         this.imageId = imageId;
         this.url = url;
         this.uploadedAt = uploadedAt;
         this.analysis_service = analysis_service;
         this.width = width;
         this.height = height;
+        this.labels = labels;
     }
 
     public Long getImageId() {
