@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "image")
+@Table(
+        name = "image",
+        uniqueConstraints = {
+                @UniqueConstraint(name="url_unique", columnNames = "url")
+        }
+)
 public class Image {
     @Id
     @SequenceGenerator(
@@ -16,11 +21,14 @@ public class Image {
             strategy = GenerationType.SEQUENCE,
             generator = "image_sequence"
     )
-   private Long imageId;
+    private Long imageId;
+    @Column(nullable = false)
     private String url;
     private LocalDate uploadedAt;
     private String analysis_service;
+    @Column(nullable = false)
     private Integer width;
+    @Column(nullable = false)
     private Integer height;
 
     @OneToMany

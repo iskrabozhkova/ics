@@ -15,6 +15,7 @@ public class Label {
             generator = "label_sequence"
     )
     private Long labelId;
+    @Column(nullable = false)
     private String name;
 
     public Label(Long labelId, String name) {
