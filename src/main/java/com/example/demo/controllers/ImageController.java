@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ImageController {
     private ImageService imageService;
+
     @Autowired
-    public ImageController(ImageService imageService){
+    public ImageController(ImageService imageService) {
         this.imageService = imageService;
     }
 
-@PostMapping
-    public String uploadImage(@RequestBody Image image){
+    @PostMapping
+    public String uploadImage(@RequestBody Image image) {
         return imageService.uploadImage(image);
     }
 }

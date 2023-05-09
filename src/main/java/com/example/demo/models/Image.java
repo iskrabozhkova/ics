@@ -1,4 +1,5 @@
 package com.example.demo.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +32,7 @@ public class Image {
     private Integer width;
     @Column(nullable = false)
     private Integer height;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name="image_label",
             joinColumns = {
