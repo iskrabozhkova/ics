@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,9 +18,12 @@ public class ImageService {
     private ImageRepository imageRepository;
     private LabelRepository labelRepository;
     private ImaggaAPI imaggaAPI;
-    public ImageService(){}
+
+    public ImageService() {
+    }
+
     @Autowired
-    public ImageService(ImageRepository imageRepository, ImaggaAPI imaggaAPI, LabelRepository labelRepository){
+    public ImageService(ImageRepository imageRepository, ImaggaAPI imaggaAPI, LabelRepository labelRepository) {
         this.imageRepository = imageRepository;
         this.labelRepository = labelRepository;
         this.imaggaAPI = imaggaAPI;
@@ -43,7 +45,7 @@ public class ImageService {
 
                 Label label = new Label();
                 label.setName(labelName);
-               labels.add(label);
+                labels.add(label);
             }
             image.setLabels(labels);
             //save image to the database
@@ -52,5 +54,16 @@ public class ImageService {
             e.printStackTrace();
         }
         return jsonResponse;
+    }
+    public Image getImageByUrl(String url) {
+        Image image = imageRepository.findByUrl(url);
+        if (image != null) {
+            return image;
+        }
+        return null;
+    }
+    public List<Image> getAllImages(){
+
+        return imageRepository.findAll();
     }
 }

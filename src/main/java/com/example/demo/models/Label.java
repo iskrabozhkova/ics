@@ -1,8 +1,9 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "label")
@@ -20,19 +21,13 @@ public class Label {
     private Long labelId;
     @Column(nullable = false)
     private String name;
-    @ManyToMany()
-    @JoinTable(name="image_label",
-            joinColumns = {
-                    @JoinColumn(name="labelId",referencedColumnName = "labelId")
-
-            },
-            inverseJoinColumns =  {
-                    @JoinColumn(name="imageId",referencedColumnName = "imageId")
-
-            }
-    )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "labels")
     private List<Image> images;
-    public Label(){}
+
+    public Label() {
+    }
+
     public Label(Long labelId, String name, List<Image> images) {
         this.labelId = labelId;
         this.name = name;
