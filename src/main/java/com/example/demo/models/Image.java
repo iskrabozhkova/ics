@@ -106,7 +106,6 @@ public class Image {
     }
 
     public List<Label> getLabels() {
-        System.out.println("Heloooo");
         return labels;
     }
 

@@ -3,12 +3,13 @@ package com.example.demo.controllers;
 import com.example.demo.models.Image;
 import com.example.demo.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path="api/images")
+@RequestMapping(path = "api/images")
 
 public class ImageController {
     private ImageService imageService;
@@ -22,8 +23,17 @@ public class ImageController {
     public String uploadImage(@RequestBody Image image) {
         return imageService.uploadImage(image);
     }
+
     @GetMapping
-    public List<Image> getAllImages(){
+    public List<Image> getAllImages(@RequestParam(required = false) List<String> labels) {
+        if (labels != null && !labels.isEmpty()) {
+            return imageService.getImagesByLabels(labels);
+        }
         return imageService.getAllImages();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Image> getImageById(@PathVariable(value = "id") Long imageId) {
+        return imageService.getImageById(imageId);
     }
 }
