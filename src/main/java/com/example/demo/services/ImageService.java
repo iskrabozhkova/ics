@@ -28,54 +28,32 @@ public class ImageService {
         this.labelRepository = labelRepository;
         this.imaggaAPI = imaggaAPI;
     }
+    public String uploadImage(Image image){
 
-    public String categorizeImage(Image image){
         String imageUrl = image.getUrl();
         String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
 
         List<Label> labels = new ArrayList<>();
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode responseJson = objectMapper.readTree(jsonResponse);
-                JsonNode resultJson = responseJson.get("result");
-                JsonNode tagsJson = resultJson.get("tags");
-                for (JsonNode tagNode : tagsJson) {
-                    JsonNode tagJson = tagNode.get("tag");
-                    String labelName = tagJson.get("en").asText();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode responseJson = objectMapper.readTree(jsonResponse);
+            JsonNode resultJson = responseJson.get("result");
+            JsonNode tagsJson = resultJson.get("tags");
+            for (JsonNode tagNode : tagsJson) {
+                JsonNode tagJson = tagNode.get("tag");
+                String labelName = tagJson.get("en").asText();
 
-                    Label label = new Label();
-                    label.setName(labelName);
-                    labels.add(label);
-                }
-                image.setLabels(labels);
-                //save image to the database
-                imageRepository.save(image);
-            } catch (JsonProcessingException | NullPointerException e) {
-                e.printStackTrace();
+                Label label = new Label();
+                label.setName(labelName);
+                labels.add(label);
             }
-        return jsonResponse;
-    }
-    public String getImageLabels(Image image){
-        List<Label> foundImageLabels = image.getLabels();
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.findAndRegisterModules();
-            String json;
-            try {
-                json = mapper.writeValueAsString(foundImageLabels);
-                return json;
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        return "";
-    }
-    public String uploadImage(Image image) {
-        String imageUrl = image.getUrl();
-        Image foundImage = getImageByUrl(imageUrl);
-        //uploaded image not exists in database
-        if (foundImage == null) {
-            return categorizeImage(image);
+            image.setLabels(labels);
+            //save image to the database
+            imageRepository.save(image);
+        }catch (JsonProcessingException | NullPointerException e) {
+            e.printStackTrace();
         }
-        return getImageLabels(foundImage);
+        return jsonResponse;
     }
     public Image getImageByUrl(String url) {
         Image image = imageRepository.findByUrl(url);
@@ -83,5 +61,9 @@ public class ImageService {
             return image;
         }
         return null;
+    }
+    public List<Image> getAllImages(){
+
+        return imageRepository.findAll();
     }
 }

@@ -1,5 +1,5 @@
 package com.example.demo.models;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 @Table(
         name = "image",
         uniqueConstraints = {
-                @UniqueConstraint(name="url_unique", columnNames = "url")
+                @UniqueConstraint(name = "url_unique", columnNames = "url")
         }
 )
 
@@ -32,14 +32,13 @@ public class Image {
     private Integer width;
     @Column(nullable = false)
     private Integer height;
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(name="image_label",
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "image_label",
             joinColumns = {
-                    @JoinColumn(name="imageId",referencedColumnName = "imageId")
+                    @JoinColumn(name = "imageId", referencedColumnName = "imageId")
             },
-            inverseJoinColumns =  {
-                    @JoinColumn(name="labelId",referencedColumnName = "labelId")
+            inverseJoinColumns = {
+                    @JoinColumn(name = "labelId", referencedColumnName = "labelId")
 
             }
     )
@@ -107,6 +106,7 @@ public class Image {
     }
 
     public List<Label> getLabels() {
+        System.out.println("Heloooo");
         return labels;
     }
 
