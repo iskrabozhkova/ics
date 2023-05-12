@@ -34,6 +34,7 @@ public class ImageService {
     }
     public String uploadImage(Image image) {
         String imageUrl = image.getUrl();
+
         String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
         String responseMessage = "Error occurred.";
 
