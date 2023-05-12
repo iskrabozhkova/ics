@@ -32,33 +32,41 @@ public class ImageService {
         this.labelRepository = labelRepository;
         this.imaggaAPI = imaggaAPI;
     }
-
     public String uploadImage(Image image) {
-
         String imageUrl = image.getUrl();
         String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
+        String responseMessage = "Error occurred.";
 
         List<Label> labels = new ArrayList<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode responseJson = objectMapper.readTree(jsonResponse);
-            JsonNode resultJson = responseJson.get("result");
-            JsonNode tagsJson = resultJson.get("tags");
-            for (JsonNode tagNode : tagsJson) {
-                JsonNode tagJson = tagNode.get("tag");
-                String labelName = tagJson.get("en").asText();
 
-                Label label = new Label();
-                label.setName(labelName);
-                labels.add(label);
+            JsonNode responseJson = objectMapper.readTree(jsonResponse);
+            if (responseJson.has("result")) {
+                JsonNode resultJson = responseJson.get("result");
+                JsonNode tagsJson = resultJson.get("tags");
+                for (JsonNode tagNode : tagsJson) {
+                    JsonNode tagJson = tagNode.get("tag");
+                    String labelName = tagJson.get("en").asText();
+
+                    Label label = new Label();
+                    label.setName(labelName);
+                    labels.add(label);
+                }
+                image.setLabels(labels);
+                //save image to the database
+                imageRepository.save(image);
+                responseMessage = jsonResponse;
+            }else{
+                JsonNode errorJson = responseJson.get("error");
+                String errorMessage = errorJson.get("message").asText();
+
+                responseMessage = "Error: " + errorMessage;
             }
-            image.setLabels(labels);
-            //save image to the database
-            imageRepository.save(image);
         } catch (JsonProcessingException | NullPointerException e) {
             e.printStackTrace();
         }
-        return jsonResponse;
+        return responseMessage;
     }
 
     public Image getImageByUrl(String url) {

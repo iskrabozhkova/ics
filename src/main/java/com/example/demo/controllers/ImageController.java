@@ -22,6 +22,7 @@ public class ImageController {
 
     @PostMapping
     public String uploadImage(@RequestBody Image image) {
+
         return imageService.uploadImage(image);
     }
 
