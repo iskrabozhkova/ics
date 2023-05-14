@@ -9,10 +9,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,11 +95,12 @@ public class ImageService {
         return imageRepository.findByLabelsIn(labelList);
     }
 
-    public ResponseEntity<Image> getImageById(Long imageId) {
-        Optional<Image> image = imageRepository.findById(imageId);
-        if (image.isPresent()) {
-            return new ResponseEntity<>(image.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public Optional<Image> getImageById(Long imageId) {
+        return imageRepository.findById(imageId);
+//        Optional<Image> image = imageRepository.findById(imageId);
+//        if (image.isPresent()) {
+//            return new ResponseEntity<>(image.get(), HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

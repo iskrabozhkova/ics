@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/images")
@@ -21,9 +22,11 @@ public class ImageController {
     }
 
     @PostMapping
-    public String uploadImage(@RequestBody Image image) {
+    public ResponseEntity<String> uploadImage(@RequestBody Image image) {
+        String response = imageService.uploadImage(image);
+        return ResponseEntity.ok(response);
+        //return new ResponseEntity<String>(response, HttpStatus.OK);
 
-        return imageService.uploadImage(image);
     }
 
     @GetMapping
@@ -41,9 +44,10 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Image> getImageById(@PathVariable(value = "id") Long imageId) {
+    public ResponseEntity<Optional<Image>> getImageById(@PathVariable(value = "id") Long imageId) {
         try {
-            return imageService.getImageById(imageId);
+            Optional<Image> image =  imageService.getImageById(imageId);
+            return ResponseEntity.ok(image);
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
