@@ -24,8 +24,7 @@ public class ImageController {
     @PostMapping
     public ResponseEntity<String> uploadImage(@RequestBody Image image) {
         String response = imageService.uploadImage(image);
-        return ResponseEntity.ok(response);
-        //return new ResponseEntity<String>(response, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 

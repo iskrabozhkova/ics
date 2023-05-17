@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,7 +55,7 @@ public class Image {
         this.analysis_service = analysis_service;
         this.width = width;
         this.height = height;
-        this.labels = labels;
+        this.labels = new ArrayList<>(labels);
     }
 
     public Long getImageId() {
@@ -106,10 +107,10 @@ public class Image {
     }
 
     public List<Label> getLabels() {
-        return labels;
+        return new ArrayList<>(labels);
     }
 
     public void setLabels(List<Label> labels) {
-        this.labels = labels;
+        this.labels = new ArrayList<>(labels);
     }
 }
