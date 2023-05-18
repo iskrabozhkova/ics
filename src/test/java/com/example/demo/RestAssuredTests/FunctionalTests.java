@@ -9,7 +9,6 @@ import java.io.File;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.AdditionalMatchers.not;
 
 public class FunctionalTests extends BaseTest {
 
@@ -30,7 +29,7 @@ public class FunctionalTests extends BaseTest {
         given()
                 .spec(reqSpec)
                 .when()
-                .get("/api/images")
+                .get("/wrong/endpoint")
                 .then()
                 .assertThat()
                 .statusCode(404);
@@ -40,7 +39,7 @@ public class FunctionalTests extends BaseTest {
     public void testGetImagesWithLabels200() {
         given()
                 .spec(reqSpec)
-                .param("labels", "label1,label2")
+                .param("labels", "fractal")
                 .when()
                 .get("/api/images")
                 .then()
@@ -53,12 +52,12 @@ public class FunctionalTests extends BaseTest {
     public void testGetImagesWithLabelsNegative() {
         given()
                 .spec(reqSpec)
-                .param("labels", "label1,label2")
+                .param("labels", "notExistsingLabel,label2")
                 .when()
                 .get("/api/images")
                 .then()
                 .assertThat()
-                .statusCode(not(200));
+                .statusCode(404);
     }
 
     @Test
@@ -78,10 +77,10 @@ public class FunctionalTests extends BaseTest {
         given()
                 .spec(reqSpec)
                 .when()
-                .get("/api/images/12")
+                .get("/api/images/100000")
                 .then()
                 .assertThat()
-                .statusCode(not(200));
+                .statusCode(404);
     }
 
     @Test
@@ -123,7 +122,7 @@ public class FunctionalTests extends BaseTest {
     public void testPostImageWithInvalidImageUrl() {
         JSONObject postParams = new JSONObject();
         try {
-            postParams.put("url", "invalid_url");
+            postParams.put("url", "");
             postParams.put("uploadedAt", "2023-05-08");
             postParams.put("analysis_service", "Imagga");
             postParams.put("width", 100);
@@ -140,7 +139,7 @@ public class FunctionalTests extends BaseTest {
                 .post("/api/images")
                 .then()
                 .assertThat()
-                .statusCode(400);
+                .statusCode(404);
     }
 
 }

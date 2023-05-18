@@ -8,13 +8,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,46 +29,40 @@ public class ImageService {
         this.labelRepository = labelRepository;
         this.imaggaAPI = imaggaAPI;
     }
-    public void getImageDimensions(String url){
-        WebClient webClient = WebClient.create();
-        InputStream imageStream = webClient
-                                    .get()
-                                    .uri(url)
-                                    .accept(MediaType.IMAGE_JPEG, MediaType.IMAGE_PNG, MediaType.IMAGE_GIF)
-                                    .retrieve().bodyToMono(InputStream.class).block();
-        if(imageStream != null){
-            try{
-                BufferedImage image = ImageIO.read(imageStream);
 
-                if (image != null) {
-                    int width = image.getWidth();
-                    int height = image.getHeight();
-
-                    System.out.println("Image Width: " + width);
-                    System.out.println("Image Height: " + height);
-                }
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-    }
     public String uploadImage(Image image) {
         String imageUrl = image.getUrl();
         String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
         String responseMessage = "Error occurred.";
 
+        List<Label> labels = extractLabelsFromJson(jsonResponse);
+        if (!labels.isEmpty()) {
+            image.setLabels(labels);
+            saveImageToDatabase(image);
+            responseMessage = jsonResponse;
+        } else {
+            String errorMessage = extractErrorMessageFromJson(jsonResponse);
+            responseMessage = "Error: " + errorMessage;
+        }
+
+        return responseMessage;
+    }
+
+    private List<Label> extractLabelsFromJson(String jsonResponse) {
         List<Label> labels = new ArrayList<>();
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
             JsonNode responseJson = objectMapper.readTree(jsonResponse);
+
             if (responseJson.has("result")) {
                 JsonNode resultJson = responseJson.get("result");
                 JsonNode tagsJson = resultJson.get("tags");
+
                 if (tagsJson != null) {
                     for (JsonNode tagNode : tagsJson) {
                         JsonNode tagJson = tagNode.get("tag");
+
                         if (tagJson != null) {
                             String labelName = tagJson.get("en").asText();
 
@@ -83,29 +72,34 @@ public class ImageService {
                         }
                     }
                 }
-                image.setLabels(labels);
-                // save image to the database
-                imageRepository.save(image);
-                responseMessage = jsonResponse;
-            } else {
-                JsonNode errorJson = responseJson.get("error");
-                if (errorJson != null) {
-                    String errorMessage = errorJson.get("message").asText();
-                    responseMessage = "Error: " + errorMessage;
-                }
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return responseMessage;
+
+        return labels;
     }
 
-    public Image getImageByUrl(String url) {
-        Image image = imageRepository.findByUrl(url);
-        if (image != null) {
-            return image;
+    private String extractErrorMessageFromJson(String jsonResponse) {
+        String errorMessage = "";
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode responseJson = objectMapper.readTree(jsonResponse);
+            JsonNode errorJson = responseJson.get("error");
+
+            if (errorJson != null) {
+                errorMessage = errorJson.get("message").asText();
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
-        return null;
+
+        return errorMessage;
+    }
+
+    private void saveImageToDatabase(Image image) {
+        imageRepository.save(image);
     }
 
     public List<Image> getAllImages() {
