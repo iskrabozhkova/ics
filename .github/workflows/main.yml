@@ -21,14 +21,13 @@ jobs:
           
       - name: Bulid JAR
         run: mvn clean install -DskipTests
-        
+      - name: Setup DB
+        uses: actions/setup-db@v3
+        with:
+          postgresql db: ics
+          postgresql user: postgres
+          postgresql password: password
       - name: Run Unit Tests
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: ics
         run: mvn spring-boot:run -Dspring-boot.run.profiles=test
 
       - name: Run SpotBugs Analysis
