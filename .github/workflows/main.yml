@@ -1,28 +1,35 @@
 name: Backend
-on: push
-
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
-  container-job:
+  build-test-analyze:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Build and test
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+           java-version: '18'
+           distribution: 'temurin'
+           cache: maven
+          
+      - name: Bulid JAR
         run: mvn clean install -DskipTests
-
-      - name: Connect to PostgreSQL
-      - uses: harmon758/postgresql-action@v1
+      - name: Database
+        uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '15.2'
           postgresql db: ics
           postgresql user: postgres
           postgresql password: password
-       
       - name: Run Unit Tests
         run: mvn spring-boot:run -Dspring-boot.run.profiles=test
 
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check 
-
