@@ -19,8 +19,8 @@ jobs:
            distribution: 'temurin'
            cache: maven
           
-      - name: Build Backend
-        run:  mvn clean install
+      - name: Build without Test
+        run: mvn clean install -DskipTests
 
       - name: Run Unit Tests
         run: mvn test 
