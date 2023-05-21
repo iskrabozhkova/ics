@@ -20,7 +20,7 @@ jobs:
            cache: maven
           
       - name: Build Backend
-        run:  mvn clean package 
+        run:  mvn clean install
 
       - name: Run Unit Tests
         run: mvn test 
