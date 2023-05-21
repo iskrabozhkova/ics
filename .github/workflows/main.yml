@@ -21,11 +21,9 @@ jobs:
           
       - name: Bulid JAR
         run: mvn clean install -DskipTests
-      - name: Find JAR File
-        run: find . -name '*.jar' -type f -print
-
+        
       - name: Run Unit Tests
-        run: java -jar target/ics.jar test
+        run: java -jar target/demo-0.0.1-SNAPSHOT.jar test
 
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check 
