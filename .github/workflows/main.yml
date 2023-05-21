@@ -28,6 +28,12 @@ jobs:
           postgresql db: ics
           postgresql user: postgres
           postgresql password: password
+      - name: Wait for Backend Server
+        run: |
+          for i in $(seq 1 10); do
+            nc -z localhost 8080 && break
+            sleep 10
+          done
       - name: Run Unit Tests
         run: mvn test -Dserver.port=8080
 
