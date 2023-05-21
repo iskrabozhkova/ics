@@ -31,7 +31,7 @@ public class Label {
     public Label(Long labelId, String name, List<Image> images) {
         this.labelId = labelId;
         this.name = name;
-        this.images = images;
+        this.images = new ArrayList<>(images);
     }
 
     public void setLabelId(Long labelId) {
@@ -51,10 +51,11 @@ public class Label {
     }
 
     public List<Image> getImages() {
-        return images;
+
+        return new ArrayList<>(images);
     }
 
     public void setImages(List<Image> images) {
-        this.images = images;
+        this.images = new ArrayList<>(images);
     }
 }

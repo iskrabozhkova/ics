@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Image;
+import com.example.demo.models.Label;
 import com.example.demo.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,19 +15,22 @@ import java.util.Optional;
 @RequestMapping(path = "api/images")
 
 public class ImageController {
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @Autowired
     public ImageController(ImageService imageService) {
+
         this.imageService = imageService;
     }
 
     @PostMapping
     public ResponseEntity<String> uploadImage(@RequestBody Image image) {
-        String response = imageService.uploadImage(image);
-        return ResponseEntity.ok(response);
-        //return new ResponseEntity<String>(response, HttpStatus.OK);
+        if (image.getUrl() == null || image.getUrl().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
+        String response = imageService.uploadImage(image);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
@@ -34,11 +38,14 @@ public class ImageController {
         try {
             if (labels != null && !labels.isEmpty()) {
                 List<Image> images = imageService.getImagesByLabels(labels);
+                if (images.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
                 return ResponseEntity.ok(images);
             }
             List<Image> images = imageService.getAllImages();
             return ResponseEntity.ok(images);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -46,11 +53,22 @@ public class ImageController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Image>> getImageById(@PathVariable(value = "id") Long imageId) {
         try {
-            Optional<Image> image =  imageService.getImageById(imageId);
-            return ResponseEntity.ok(image);
-        }catch(Exception e){
+            Optional<Image> image = imageService.getImageById(imageId);
+
+            if (image.isPresent() && image.get() != null) {
+                return ResponseEntity.ok(image);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    @DeleteMapping(value = {"/id"})
+//    public void deleteImage(@RequestParam("imageID") Long imageId) {
+//         imageService.deleteImageById(imageId);
+//    }
+
+
 }
