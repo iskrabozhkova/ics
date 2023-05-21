@@ -9,6 +9,16 @@ on:
 jobs:
   build-test-analyze:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: ics
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -21,11 +31,6 @@ jobs:
           
       - name: Bulid JAR
         run: mvn clean install -DskipTests
-      - name: Set up PostgreSQL
-        run: |
-          echo "spring.datasource.url=jdbc:postgresql://localhost:5432/ics" >> $GITHUB_ENV
-          echo "spring.datasource.username=postgres" >> $GITHUB_ENV
-          echo "spring.datasource.password=password" >> $GITHUB_ENV
 
       - name: Run Unit Tests
         run: mvn spring-boot:run -Dspring-boot.run.profiles=test
