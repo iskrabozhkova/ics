@@ -21,12 +21,12 @@ jobs:
           
       - name: Bulid JAR
         run: mvn clean install -DskipTests
-      - name: Setup DB
-        uses: actions/setup-db@v3
-        with:
-          postgresql db: ics
-          postgresql user: postgres
-          postgresql password: password
+      - name: Set up PostgreSQL
+        run: |
+          echo "spring.datasource.url=jdbc:postgresql://localhost:5432/ics" >> $GITHUB_ENV
+          echo "spring.datasource.username=postgres" >> $GITHUB_ENV
+          echo "spring.datasource.password=password" >> $GITHUB_ENV
+
       - name: Run Unit Tests
         run: mvn spring-boot:run -Dspring-boot.run.profiles=test
 
