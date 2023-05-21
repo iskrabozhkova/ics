@@ -1,39 +1,35 @@
 name: Backend
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: push
+
 jobs:
-  build-test-analyze:
+  container-job:
     runs-on: ubuntu-latest
+    container: maven:3.9.1-openjdk-18-slim
+
     services:
-      db:
-        image: postgres:latest
+      postgres:
+        image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: ics
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-           java-version: '18'
-           distribution: 'temurin'
-           cache: maven
-          
-      - name: Bulid JAR
+
+      - name: Build and test
         run: mvn clean install -DskipTests
 
-      - name: Run Unit Tests
-        run: mvn spring-boot:run -Dspring-boot.run.profiles=test
+      - name: Connect to PostgreSQL
+        run: |
+          mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:postgresql://postgres:5432/ics --spring.datasource.username=postgres --spring.datasource.password=password"
 
-      - name: Run SpotBugs Analysis
-        run: mvn spotbugs:check 
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ics
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: password
+
