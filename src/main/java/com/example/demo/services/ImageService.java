@@ -120,26 +120,11 @@ public class ImageService {
         return imageRepository.findById(imageId);
     }
 
-    public boolean deleteImageById(Long imageId) {
-        System.out.println("pp");
-        return true;
-//            Optional<Image> optionalImage = imageRepository.findById(imageId);
-//            if (optionalImage.isPresent()) {
-//                Image image = optionalImage.get();
-//                List<Label> labelsCopy = new ArrayList<>(image.getLabels()); // Create a copy of the labels
-//                // Perform any necessary operations using the copied labels
-//                // ...
-//
-//                // Delete the labels
-//                for (Label label : labelsCopy) {
-//                    labelRepository.delete(label);
-//                }
-//
-//                // Delete the image
-//                imageRepository.deleteById(imageId);
-//            }
-
-
+//    public void deleteImageById(Long imageId) {
+//        boolean exists = imageRepository.existsById(imageId);
+//        if(!exists){
+//            throw new IllegalStateException("Image with id " + imageId + " does not exist");
 //        }
-    }
+//        imageRepository.deleteById(imageId);
+//    }
 }

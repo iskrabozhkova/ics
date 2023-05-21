@@ -66,9 +66,8 @@ public class ImageController {
         }
     }
 //    @DeleteMapping(value = {"/id"})
-//    public boolean deleteImage(@RequestParam("imageID") Long imageID) {
-//        boolean returnStatement = imageService.deleteImageById(imageID);
-//        return returnStatement;
+//    public void deleteImage(@RequestParam("imageID") Long imageId) {
+//         imageService.deleteImageById(imageId);
 //    }
 
 
