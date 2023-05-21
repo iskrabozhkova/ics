@@ -29,7 +29,7 @@ jobs:
           postgresql user: postgres
           postgresql password: password
       - name: Run Unit Tests
-        run: mvn spring-boot:run -Dspring-boot.run.profiles=test
+        run: mvn test
 
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check 
