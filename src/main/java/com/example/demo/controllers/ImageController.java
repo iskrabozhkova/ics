@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Image;
+import com.example.demo.models.Label;
 import com.example.demo.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,11 @@ import java.util.Optional;
 @RequestMapping(path = "api/images")
 
 public class ImageController {
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @Autowired
     public ImageController(ImageService imageService) {
+
         this.imageService = imageService;
     }
 
@@ -63,4 +65,11 @@ public class ImageController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    @DeleteMapping(value = {"/id"})
+//    public boolean deleteImage(@RequestParam("imageID") Long imageID) {
+//        boolean returnStatement = imageService.deleteImageById(imageID);
+//        return returnStatement;
+//    }
+
+
 }

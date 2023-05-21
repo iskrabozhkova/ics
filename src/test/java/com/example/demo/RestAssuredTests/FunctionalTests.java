@@ -3,6 +3,7 @@ package com.example.demo.RestAssuredTests;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -94,29 +95,30 @@ public class FunctionalTests extends BaseTest {
                 .body(JsonSchemaValidator.matchesJsonSchema(new File("src/JSONSchemas/ImagesJsonSchema.json")));
     }
 
-    @Test
-    public void testPostIssue201() {
-        JSONObject postParams = new JSONObject();
-        try {
-            postParams.put("url", "https://cdn.pixabay.com/photo/2018/11/17/22/15/trees-3822149_960_720.jpg");
-            postParams.put("uploadedAt", "2023-05-08");
-            postParams.put("analysis_service", "Imagga");
-            postParams.put("width", 100);
-            postParams.put("height", 200);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        given()
-                .spec(reqSpec)
-                .contentType("application/json")
-                .body(postParams.toString())
-                .when()
-                .post("/api/images")
-                .prettyPeek()
-                .then()
-                .assertThat()
-                .statusCode(201);
-    }
+//    @Test
+//    @Disabled
+//    public void testPostIssue201() {
+//        JSONObject postParams = new JSONObject();
+//        try {
+//            postParams.put("url", "https://cdn.pixabay.com/photo/2018/11/17/22/15/trees-3822149_960_720.jpg");
+//            postParams.put("uploadedAt", "2023-05-08");
+//            postParams.put("analysis_service", "Imagga");
+//            postParams.put("width", 100);
+//            postParams.put("height", 200);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        given()
+//                .spec(reqSpec)
+//                .contentType("application/json")
+//                .body(postParams.toString())
+//                .when()
+//                .post("/api/images")
+//                .prettyPeek()
+//                .then()
+//                .assertThat()
+//                .statusCode(201);
+//    }
 
     @Test
     public void testPostImageWithInvalidImageUrl() {

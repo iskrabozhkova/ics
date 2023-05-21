@@ -12,7 +12,7 @@ public class EndToEndTest extends BaseTest {
     public void testIssueE2E() {
         Actors actor = new Actors(reqSpec);
         List<Image> imagesBefore = actor.getImages();
-        String url = "https://cdn.pixabay.com/photo/2012/06/19/10/32/owl-50267_960_720.jpg";
+        String url = "https://cdn.pixabay.com/photo/2015/05/25/14/29/tea-783352_960_720.jpg";
         int width = 100;
         int height = 200;
         actor.postImage(url, width, height);
@@ -20,7 +20,7 @@ public class EndToEndTest extends BaseTest {
         Assertions.assertEquals(imagesBefore.size() + 1, imagesAfter.size());
         boolean imageExists = false;
         for (Image img : imagesAfter) {
-            if (img.getUrl().equals("https://cdn.pixabay.com/photo/2012/06/19/10/32/owl-50267_960_720.jpg")) {
+            if (img.getUrl().equals("https://cdn.pixabay.com/photo/2015/05/25/14/29/tea-783352_960_720.jpg")) {
                 imageExists = true;
                 break;
             }

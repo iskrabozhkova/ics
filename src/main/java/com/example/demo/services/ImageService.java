@@ -7,6 +7,7 @@ import com.example.demo.repository.LabelRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class ImageService {
         List<Label> labels = extractLabelsFromJson(jsonResponse);
         if (!labels.isEmpty()) {
             image.setLabels(labels);
-            saveImageToDatabase(image);
+            imageRepository.save(image);
             responseMessage = jsonResponse;
         } else {
             String errorMessage = extractErrorMessageFromJson(jsonResponse);
@@ -48,7 +49,7 @@ public class ImageService {
         return responseMessage;
     }
 
-    private List<Label> extractLabelsFromJson(String jsonResponse) {
+    public List<Label> extractLabelsFromJson(String jsonResponse) {
         List<Label> labels = new ArrayList<>();
 
         try {
@@ -80,7 +81,7 @@ public class ImageService {
         return labels;
     }
 
-    private String extractErrorMessageFromJson(String jsonResponse) {
+    public String extractErrorMessageFromJson(String jsonResponse) {
         String errorMessage = "";
 
         try {
@@ -98,9 +99,9 @@ public class ImageService {
         return errorMessage;
     }
 
-    private void saveImageToDatabase(Image image) {
-        imageRepository.save(image);
-    }
+//    //private void saveImageToDatabase(Image image) {
+//        imageRepository.save(image);
+//    }
 
     public List<Image> getAllImages() {
         return imageRepository.findAll();
@@ -117,5 +118,28 @@ public class ImageService {
 
     public Optional<Image> getImageById(Long imageId) {
         return imageRepository.findById(imageId);
+    }
+
+    public boolean deleteImageById(Long imageId) {
+        System.out.println("pp");
+        return true;
+//            Optional<Image> optionalImage = imageRepository.findById(imageId);
+//            if (optionalImage.isPresent()) {
+//                Image image = optionalImage.get();
+//                List<Label> labelsCopy = new ArrayList<>(image.getLabels()); // Create a copy of the labels
+//                // Perform any necessary operations using the copied labels
+//                // ...
+//
+//                // Delete the labels
+//                for (Label label : labelsCopy) {
+//                    labelRepository.delete(label);
+//                }
+//
+//                // Delete the image
+//                imageRepository.deleteById(imageId);
+//            }
+
+
+//        }
     }
 }
