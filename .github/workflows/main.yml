@@ -19,11 +19,11 @@ jobs:
            distribution: 'temurin'
            cache: maven
           
-      - name: Build without Test
+      - name: Bulid JAR
         run: mvn clean install -DskipTests
 
       - name: Run Unit Tests
-        run: mvn test 
+        run: java -jar target/ics.jar test
 
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check 
