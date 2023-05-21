@@ -23,6 +23,12 @@ jobs:
         run: mvn clean install -DskipTests
         
       - name: Run Unit Tests
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: ics
         run: java -jar target/demo-0.0.1-SNAPSHOT.jar test
 
       - name: Run SpotBugs Analysis
