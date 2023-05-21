@@ -29,7 +29,7 @@ jobs:
           postgresql user: postgres
           postgresql password: password
       - name: Run Unit Tests
-        run: mvn test
+        run: mvn test -Dserver.port=8080
 
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check 
