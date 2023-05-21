@@ -4,7 +4,7 @@ on: push
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    container: maven:3.9.1-openjdk-18-slim
+    container: maven:3.8.5-openjdk-18
 
     services:
       postgres:
