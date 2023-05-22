@@ -28,7 +28,13 @@ public class Actors {
                 .jsonPath().getList("", Image.class);
         return images;
     }
-
+    public void deleteImageById(Long imageId){
+        String imageUrl = URLTemplate.SingleImageURLTemplate.replace("{id}", String.valueOf(imageId));
+        RestAssured.given()
+                .spec(this.spec)
+                .when()
+                .delete(imageUrl);
+    }
     public Response postImage(String imageUrl, int width, int height) {
         JSONObject postParams = new JSONObject();
         try {
@@ -48,5 +54,45 @@ public class Actors {
                 .post(URLTemplate.BasicURLTemplate)
                 .prettyPeek();
         return response;
+    }
+    public void createImage(String imageUrl) {
+        JSONObject postParams = new JSONObject();
+        try {
+            postParams.put("url", imageUrl);
+            postParams.put("uploadedAt", "2023-05-08");
+            postParams.put("analysis_service", "Imagga");
+            postParams.put("width", 100);
+            postParams.put("height", 200);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        given()
+                .spec(spec)
+                .contentType("application/json")
+                .body(postParams.toString())
+                .when()
+                .post("/api/images")
+                .prettyPeek()
+                .then()
+                .assertThat()
+                .statusCode(201);
+    }
+    public boolean checkImageExists(List<Image> images, String imageUrl) {
+        for (Image img : images) {
+            if (img.getUrl().equals(imageUrl)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Long getImageId(List<Image> images, String imageUrl) {
+        for (Image img : images) {
+            if (img.getUrl().equals(imageUrl)) {
+                return img.getImageId();
+            }
+        }
+        return null;
     }
 }

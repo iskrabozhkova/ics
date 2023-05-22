@@ -7,8 +7,6 @@ import com.example.demo.repository.LabelRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,15 +15,11 @@ import java.util.Optional;
 
 @Service
 public class ImageService {
-    private ImageRepository imageRepository;
-    private LabelRepository labelRepository;
-    private ImaggaAPI imaggaAPI;
+    private final ImageRepository imageRepository;
+    private final LabelRepository labelRepository;
+    private  final ImaggaAPI imaggaAPI;
 
-    public ImageService() {
-    }
-
-    @Autowired
-    public ImageService(ImageRepository imageRepository, ImaggaAPI imaggaAPI, LabelRepository labelRepository) {
+    public ImageService(ImageRepository imageRepository, LabelRepository labelRepository, ImaggaAPI imaggaAPI) {
         this.imageRepository = imageRepository;
         this.labelRepository = labelRepository;
         this.imaggaAPI = imaggaAPI;
@@ -99,9 +93,6 @@ public class ImageService {
         return errorMessage;
     }
 
-//    //private void saveImageToDatabase(Image image) {
-//        imageRepository.save(image);
-//    }
 
     public List<Image> getAllImages() {
         return imageRepository.findAll();
@@ -120,11 +111,15 @@ public class ImageService {
         return imageRepository.findById(imageId);
     }
 
-//    public void deleteImageById(Long imageId) {
-//        boolean exists = imageRepository.existsById(imageId);
-//        if(!exists){
-//            throw new IllegalStateException("Image with id " + imageId + " does not exist");
-//        }
-//        imageRepository.deleteById(imageId);
-//    }
+    public boolean deleteById(Long imageId) {
+        if(imageId == null){
+            return false;
+        }
+        boolean exists = imageRepository.existsById(imageId);
+        if(!exists){
+            return false;
+        }
+        imageRepository.deleteById(imageId);
+        return true;
+    }
 }

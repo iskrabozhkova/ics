@@ -121,11 +121,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-		<groupId>com.github.spotbugs</groupId>
-		<artifactId>spotbugs</artifactId>
-		<version>4.5.3</version>
-	   </dependency>
+<!--		<dependency>-->
+<!--		<groupId>com.github.spotbugs</groupId>-->
+<!--		<artifactId>spotbugs</artifactId>-->
+<!--		<version>4.5.3</version>-->
+<!--	   </dependency>-->
 	</dependencies>
 
 	<build>

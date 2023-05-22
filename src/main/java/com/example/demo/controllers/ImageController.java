@@ -1,14 +1,13 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Image;
-import com.example.demo.models.Label;
 import com.example.demo.services.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -17,10 +16,9 @@ import java.util.Optional;
 public class ImageController {
     private final ImageService imageService;
 
-    @Autowired
     public ImageController(ImageService imageService) {
-
-        this.imageService = imageService;
+        // Using Objects.requiteNonNull as a workaround because https://github.com/spotbugs/spotbugs/issues/1797
+        this.imageService = Objects.requireNonNull(imageService, "image service must not be null");
     }
 
     @PostMapping
@@ -65,10 +63,14 @@ public class ImageController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @DeleteMapping(value = {"/id"})
-//    public void deleteImage(@RequestParam("imageID") Long imageId) {
-//         imageService.deleteImageById(imageId);
-//    }
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> removeImage(@PathVariable(value = "id") Long imageId) {
+        boolean isDeletionSuccessful = imageService.deleteById(imageId);
+        if (isDeletionSuccessful) {
+            return ResponseEntity.ok("Image deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found");
+        }
+    }
+    
 }
