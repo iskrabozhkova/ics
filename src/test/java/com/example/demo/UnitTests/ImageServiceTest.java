@@ -38,7 +38,7 @@ class ImageServiceTest {
     @BeforeEach
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
-        underTest = new ImageService(imageRepository, imaggaAPI, labelRepository);
+        underTest = new ImageService(imageRepository, labelRepository, imaggaAPI);
     }
 
     @AfterEach

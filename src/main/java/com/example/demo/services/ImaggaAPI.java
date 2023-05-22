@@ -13,7 +13,7 @@ public class ImaggaAPI {
     private static final String API_KEY = "acc_e978d85bb0300de";
     private static final String API_SECRET = "cb2a812cb9772d0e275faab050e8f830";
 
-    private WebClient webClient;
+    private final WebClient webClient;
 
     public ImaggaAPI() {
         this.webClient = WebClient.create();
