@@ -177,4 +177,25 @@ class ImageServiceTest {
         verify(imageRepository, never()).save(any(Image.class));
         assertEquals("Error: ", response);
     }
+    @Test
+    public void testDeleteByIdSuccessful() {
+        Long imageId = 1L;
+        when(imageRepository.existsById(imageId)).thenReturn(true);
+        boolean isDeletionSuccessful = underTest.deleteById(imageId);
+
+        assertTrue(isDeletionSuccessful);
+    }
+    @Test
+    public void testDeleteByIdNull() {
+        boolean deletionSuccessful = underTest.deleteById(null);
+        assertFalse(deletionSuccessful);
+    }
+
+    @Test
+    public void testDeleteByIdImageNotFound() {
+        Long imageId = 100L;
+        when(imageRepository.existsById(imageId)).thenReturn(false);
+        boolean deletionSuccessful = underTest.deleteById(imageId);
+        assertFalse(deletionSuccessful);
+    }
 }
