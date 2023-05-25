@@ -5,8 +5,12 @@ import com.example.demo.models.Label;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.LabelRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,13 +38,31 @@ public class ImageService {
         if (!labels.isEmpty()) {
             image.setLabels(labels);
             imageRepository.save(image);
-            responseMessage = jsonResponse;
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                ObjectNode responseObject = objectMapper.readValue(jsonResponse, ObjectNode.class);
+                responseObject.set("image", objectMapper.valueToTree(image.getUrl()));
+
+                responseMessage = objectMapper.writeValueAsString(responseObject);
+            }catch(JsonProcessingException e) {
+                e.printStackTrace();
+            }
         } else {
             String errorMessage = extractErrorMessageFromJson(jsonResponse);
             responseMessage = "Error: " + errorMessage;
         }
 
         return responseMessage;
+    }
+    private String convertImageToJson(Image image) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            return objectMapper.writeValueAsString(image);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public List<Label> extractLabelsFromJson(String jsonResponse) {

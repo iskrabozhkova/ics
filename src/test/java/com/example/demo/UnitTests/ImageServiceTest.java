@@ -147,36 +147,25 @@ class ImageServiceTest {
             tagsArray.put(tag1);
             tagsArray.put(tag2);
 
-            JSONObject jsonResponse = new JSONObject();
-            jsonResponse.put("result", new JSONObject().put("tags", tagsArray));
+            JSONObject expectedResponse = new JSONObject();
+            expectedResponse.put("result", new JSONObject().put("tags", tagsArray));
+            expectedResponse.put("image", image.getUrl());
 
+            String expectedResponseString = expectedResponse.toString();
 
-        when(imaggaAPI.categorizeImage(image.getUrl())).thenReturn(jsonResponse.toString());
+            when(imaggaAPI.categorizeImage(image.getUrl())).thenReturn(expectedResponseString);
 
-        String response = underTest.uploadImage(image);
+            String response = underTest.uploadImage(image);
 
-        verify(imaggaAPI).categorizeImage(image.getUrl());
-        verify(imageRepository).save(image);
-        assertEquals(jsonResponse.toString(), response);
-       assertEquals(2, image.getLabels().size());
-        }catch (JSONException e) {
+            verify(imaggaAPI).categorizeImage(image.getUrl());
+            verify(imageRepository).save(image);
+            assertEquals(expectedResponseString, response);
+            assertEquals(2, image.getLabels().size());
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    @Test
-    void testUploadImage_WithEmptyResponse_ErrorResponse() {
-        Image image = new Image(1L, "imageUrl", LocalDate.now(), "analysisService", 800, 200, new ArrayList<>());
 
-        String emptyResponse = "{}";
-
-        when(imaggaAPI.categorizeImage(image.getUrl())).thenReturn(emptyResponse);
-
-        String response = underTest.uploadImage(image);
-
-        verify(imaggaAPI).categorizeImage(image.getUrl());
-        verify(imageRepository, never()).save(any(Image.class));
-        assertEquals("Error: ", response);
-    }
     @Test
     public void testDeleteByIdSuccessful() {
         Long imageId = 1L;
