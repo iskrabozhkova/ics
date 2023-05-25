@@ -1,0 +1,192 @@
+{
+	"root": true,
+	"ignorePatterns": [
+		"projects/**/*"
+	],
+	"overrides": [
+		{
+			"files": [
+				"*.ts"
+			],
+			"parserOptions": {
+				"project": [
+					"tsconfig.json"
+				],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"plugin:@angular-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates",
+				// AirBnB Styleguide rules
+				"airbnb-typescript/base"
+			],
+			"plugins": [
+				"import"
+			],
+			"rules": {
+				"@angular-eslint/component-selector": [
+					"warn",
+					{
+						"type": "element",
+						"prefix": "ics",
+						"style": "kebab-case"
+					}
+				],
+				"@angular-eslint/directive-selector": [
+					"warn",
+					{
+						"type": "attribute",
+						"prefix": "",
+						"style": "camelCase"
+					}
+				],
+				"@typescript-eslint/no-this-alias": "warn",
+				"@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
+				"@typescript-eslint/quotes": [
+					"warn",
+					"single",
+					{
+						"avoidEscape": true
+					}
+				],
+				"@typescript-eslint/indent": [
+					"warn",
+					4
+				],
+				"@typescript-eslint/brace-style": [
+					"warn",
+					"allman",
+					{
+						"allowSingleLine": true
+					}
+				],
+				"@typescript-eslint/naming-convention": [
+					"warn",
+					{
+						"selector": "enumMember",
+						"format": [
+							"PascalCase",
+							"UPPER_CASE"
+						],
+						"leadingUnderscore": "allow",
+						"trailingUnderscore": "allow"
+					},
+					{
+						"selector": "default",
+						"format": [
+							"PascalCase",
+							"camelCase",
+							"UPPER_CASE"
+						],
+						"leadingUnderscore": "allow",
+						"trailingUnderscore": "allow"
+					},
+					{
+						"selector": "variable",
+						"format": [
+							"PascalCase",
+							"camelCase",
+							"UPPER_CASE"
+						],
+						"leadingUnderscore": "allow",
+						"trailingUnderscore": "allow"
+					},
+					{
+						"selector": "typeLike",
+						"format": [
+							"PascalCase",
+							"UPPER_CASE"
+						]
+					}
+				],
+				"@typescript-eslint/consistent-type-assertions": [
+					"warn",
+					{
+						"assertionStyle": "angle-bracket",
+						"objectLiteralTypeAssertions": "allow"
+					}
+				],
+				"class-methods-use-this": [
+					"off"
+				],
+				"arrow-parens": [
+					"off",
+					"always"
+				],
+				"comma-dangle": [
+					"warn",
+					"always-multiline"
+				],
+				"id-blacklist": "warn",
+				"import/order": "warn",
+				"newline-per-chained-call": "warn",
+				"no-duplicate-imports": "warn",
+				"no-multiple-empty-lines": "warn",
+				"padding-line-between-statements": [
+					"warn",
+					{
+						"blankLine": "always",
+						"prev": "*",
+						"next": "return"
+					}
+				],
+				"prefer-template": "warn",
+				"space-before-function-paren": "off",
+				"space-in-parens": [
+					"warn",
+					"never"
+				],
+				"import/prefer-default-export": "off",
+				"padded-blocks": [
+					"warn",
+					{
+						"blocks": "never"
+					}
+				],
+				"max-len": [
+					"warn",
+					140
+				],
+				"array-bracket-spacing": [
+					"warn",
+					"always"
+				],
+				"template-curly-spacing": [
+					"warn",
+					"always"
+				],
+				"prefer-arrow-callback": [
+					"off",
+					{
+						"allowNamedFunctions": true
+					}
+				],
+				"prefer-arrow-functions": [
+					"off"
+				],
+				"implicit-arrow-linebreak": [
+					"off"
+				],
+				"function-paren-newline": [
+					"off"
+				],
+				"operator-linebreak": [
+					"warn",
+					"after"
+				],
+				"no-template-curly-in-string": [
+					"warn"
+				]
+			}
+		},
+		{
+			"files": [
+				"*.html"
+			],
+			"extends": [
+				"plugin:@angular-eslint/template/recommended"
+			],
+			"rules": {}
+		}
+	]
+}
