@@ -49,17 +49,6 @@
 						"avoidEscape": true
 					}
 				],
-				"@typescript-eslint/indent": [
-					"warn",
-					4
-				],
-				"@typescript-eslint/brace-style": [
-					"warn",
-					"allman",
-					{
-						"allowSingleLine": true
-					}
-				],
 				"@typescript-eslint/naming-convention": [
 					"warn",
 					{
@@ -113,10 +102,6 @@
 					"off",
 					"always"
 				],
-				"comma-dangle": [
-					"warn",
-					"always-multiline"
-				],
 				"id-blacklist": "warn",
 				"import/order": "warn",
 				"newline-per-chained-call": "warn",
@@ -146,10 +131,6 @@
 				"max-len": [
 					"warn",
 					140
-				],
-				"array-bracket-spacing": [
-					"warn",
-					"always"
 				],
 				"template-curly-spacing": [
 					"warn",
