@@ -1,1 +1,19 @@
-<p>gallery works!</p>
+
+<ics-menu>
+<div *ngFor="let image of images">
+    <div class="clr-row">
+        <div class="clr-col-lg-6 clr-col-12">
+            <a href="..." class="card clickable">
+                <div class="card-img">
+                    <img [src]="image.url">
+                </div>
+                <div class="card-block">
+                    <p class="card-text">
+                        ...
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</ics-menu>

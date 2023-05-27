@@ -1,1 +1,20 @@
-<p>image-details works!</p>
+<div *ngIf="image">
+    <div class="clr-row">
+        <div class="clr-col-lg-6 clr-col-12">
+            <a href="..." class="card clickable">
+                <div class="card-img">
+                    <img [src]="image.url">
+                </div>
+                <div class="card-block">
+                    <p>Analysis Service: {{ image.analysisService }}</p>
+                    <p>Width: {{ image.width }}</p>
+                    <p>Height: {{ image.height }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<h2>Labels:</h2>
+<ul>
+    <li *ngFor="let label of image.labels">{{ label.name }} (Confidence: {{ label.confidence }})</li>
+  </ul>

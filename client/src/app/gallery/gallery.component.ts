@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../service/image.service';
+import { Image } from '../interfaces/image';
 
 @Component({
   selector: 'ics-gallery',
@@ -7,6 +8,8 @@ import { ImageService } from '../service/image.service';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
+  images: Image[] = [];
+
   ngOnInit(): void {
     this.onGetImages();
   }
@@ -15,7 +18,9 @@ export class GalleryComponent implements OnInit {
 
   onGetImages(): void {
     this.imageService.getImages().subscribe({
-      next: (response) => console.log(response),
+      next: (response) => {
+        this.images = response;
+      },
       error: (error) => console.log(error),
       complete: () => console.log('Done'),
     });
