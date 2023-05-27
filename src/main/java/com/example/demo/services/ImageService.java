@@ -41,8 +41,8 @@ public class ImageService {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 ObjectNode responseObject = objectMapper.readValue(jsonResponse, ObjectNode.class);
-                responseObject.set("image", objectMapper.valueToTree(image.getUrl()));
-
+                responseObject.set("imageUrl", objectMapper.valueToTree(image.getUrl()));
+                responseObject.set("imageId", objectMapper.valueToTree(image.getImageId()));
                 responseMessage = objectMapper.writeValueAsString(responseObject);
             }catch(JsonProcessingException e) {
                 e.printStackTrace();

@@ -29,9 +29,9 @@ public class Image {
     private String url;
     private LocalDate uploadedAt;
     private String analysis_service;
-    @Column(nullable = false)
+    @Column()
     private Integer width;
-    @Column(nullable = false)
+    @Column()
     private Integer height;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "image_label",
