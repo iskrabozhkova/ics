@@ -1,4 +1,5 @@
-<div *ngIf="image">
+<ics-menu>
+<div *ngIf="image" class="image-container">
     <div class="clr-row">
         <div class="clr-col-lg-6 clr-col-12">
             <a href="..." class="card clickable">
@@ -15,6 +16,16 @@
     </div>
 </div>
 <h2>Labels:</h2>
-<ul>
-    <li *ngFor="let label of image.labels">{{ label.name }} (Confidence: {{ label.confidence }})</li>
-  </ul>
+    <ul>
+    <ng-container *ngFor="let label of image.labels">
+        <li>
+            <div class="label-info">
+                <span class="label-name">{{ label.name }}</span>
+                <span class="confidence">{{ label.confidence }}%</span>
+              </div>
+            <progress class="progress-bar" max="100" [value]="label.confidence" [attr.data-displayval]="label.confidence + '%'">
+            </progress>
+          </li>
+    </ng-container>
+</ul>
+</ics-menu>
