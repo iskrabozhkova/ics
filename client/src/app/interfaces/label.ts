@@ -1,4 +1,4 @@
 export interface Label {
   name: string;
-  confidence: string;
+  confidence: number;
 }

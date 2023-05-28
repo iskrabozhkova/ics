@@ -1,19 +1,24 @@
 <ics-menu>
 <form [formGroup]="uploadForm" clrForm>
     <div class="clr-form-control" [class.clr-error]="inputText?.invalid && inputText?.touched">
-      <label for="urlInput" class="clr-control-label">Enter url:</label>
+      <label for="urlInput" class="clr-control-label">Enter image url and I will tell you everything about the image behind it:</label>
       <div class="clr-control-container">
         <div class="clr-input-wrapper">
           <input type="text" id="urlInput" placeholder="Enter image url" class="clr-input" formControlName="inputText" />
           <cds-icon class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
         </div>
         <span clr-subtext *ngIf="inputText?.invalid && inputText?.touched">This filed is required!</span>
+        <span clr-subtext *ngIf="errorMessage">{{ errorMessage }}</span>
       </div>
     </div>
     <button [disabled]="uploadForm.invalid" 
             type="submit" 
             class="btn btn-success-outline"
-            (click)="onUploadImage()">Submit</button>
+            (click)="onUploadImage()">Submit
+    </button>
+    <span class="spinner" *ngIf="isLoading">
+        Loading...
+    </span>
   </form>
   </ics-menu>
   

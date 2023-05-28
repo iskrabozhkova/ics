@@ -79,12 +79,15 @@ public class ImageService {
                 if (tagsJson != null) {
                     for (JsonNode tagNode : tagsJson) {
                         JsonNode tagJson = tagNode.get("tag");
+                        JsonNode confidenceJson = tagNode.get("confidence");
 
-                        if (tagJson != null) {
+                        if (tagJson != null && confidenceJson != null) {
                             String labelName = tagJson.get("en").asText();
+                            Double confidence = confidenceJson.asDouble();
 
                             Label label = new Label();
                             label.setName(labelName);
+                            label.setConfidence(confidence);
                             labels.add(label);
                         }
                     }
@@ -96,6 +99,7 @@ public class ImageService {
 
         return labels;
     }
+
 
     public String extractErrorMessageFromJson(String jsonResponse) {
         String errorMessage = "";

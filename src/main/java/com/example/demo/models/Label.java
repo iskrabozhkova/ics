@@ -21,6 +21,18 @@ public class Label {
     private Long labelId;
     @Column(nullable = false)
     private String name;
+
+    @Column()
+    private Double confidence;
+
+    public Double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(Double confidence) {
+        this.confidence = confidence;
+    }
+
     @JsonIgnore
     @ManyToMany(mappedBy = "labels")
     private List<Image> images;
@@ -28,9 +40,10 @@ public class Label {
     public Label() {
     }
 
-    public Label(Long labelId, String name, List<Image> images) {
+    public Label(Long labelId, String name, Double confidence, List<Image> images) {
         this.labelId = labelId;
         this.name = name;
+        this.confidence = confidence;
         this.images = new ArrayList<>(images);
     }
 

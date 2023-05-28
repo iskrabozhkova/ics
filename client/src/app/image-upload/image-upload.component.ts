@@ -11,6 +11,10 @@ import { getImageDimensions } from '../service/helpers';
   styleUrls: ['./image-upload.component.scss'],
 })
 export class ImageUploadComponent {
+  isLoading: boolean = false;
+
+  errorMessage : string = '';
+
   uploadForm = new FormGroup({
     inputText: new FormControl('', [Validators.required]),
   });
@@ -27,6 +31,7 @@ export class ImageUploadComponent {
     
     getImageDimensions(url)
       .then((dimensions) => {
+        this.isLoading = true;
         const image: Image = {
           url: url,
           analysisService: 'Imagga',
@@ -41,8 +46,14 @@ export class ImageUploadComponent {
 
             this.router.navigate(['/images', imageId]);
           },
-          error: (error: any) => console.log(error),
-          complete: () => console.log('Done'),
+          error: (error: any) => {
+            this.isLoading = false;
+            console.log(error);
+            this.errorMessage = 'An error occurred while uploading the image. Please try again later.';
+          },
+          complete: () => {
+            this.isLoading = false;
+          },
         });
       });
   }
