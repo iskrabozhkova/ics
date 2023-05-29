@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/images")
+@CrossOrigin("http://localhost:4200")
 
 public class ImageController {
     private final ImageService imageService;

@@ -1,0 +1,31 @@
+<ics-menu>
+<div *ngIf="image" class="image-container">
+    <div class="clr-row">
+        <div class="clr-col-lg-6 clr-col-12">
+            <a href="..." class="card clickable">
+                <div class="card-img">
+                    <img [src]="image.url">
+                </div>
+                <div class="card-block">
+                    <p>Analysis Service: {{ image.analysisService }}</p>
+                    <p>Width: {{ image.width }}</p>
+                    <p>Height: {{ image.height }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<h2>Labels:</h2>
+    <ul>
+    <ng-container *ngFor="let label of image.labels">
+        <li>
+            <div class="label-info">
+                <span class="label-name">{{ label.name }}</span>
+                <span class="confidence">{{ label.confidence }}%</span>
+              </div>
+            <progress class="progress-bar" max="100" [value]="label.confidence" [attr.data-displayval]="label.confidence + '%'">
+            </progress>
+          </li>
+    </ng-container>
+</ul>
+</ics-menu>

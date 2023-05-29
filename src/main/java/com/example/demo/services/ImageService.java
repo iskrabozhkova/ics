@@ -41,8 +41,8 @@ public class ImageService {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 ObjectNode responseObject = objectMapper.readValue(jsonResponse, ObjectNode.class);
-                responseObject.set("image", objectMapper.valueToTree(image.getUrl()));
-
+                responseObject.set("imageUrl", objectMapper.valueToTree(image.getUrl()));
+                responseObject.set("imageId", objectMapper.valueToTree(image.getImageId()));
                 responseMessage = objectMapper.writeValueAsString(responseObject);
             }catch(JsonProcessingException e) {
                 e.printStackTrace();
@@ -79,12 +79,15 @@ public class ImageService {
                 if (tagsJson != null) {
                     for (JsonNode tagNode : tagsJson) {
                         JsonNode tagJson = tagNode.get("tag");
+                        JsonNode confidenceJson = tagNode.get("confidence");
 
-                        if (tagJson != null) {
+                        if (tagJson != null && confidenceJson != null) {
                             String labelName = tagJson.get("en").asText();
+                            Double confidence = confidenceJson.asDouble();
 
                             Label label = new Label();
                             label.setName(labelName);
+                            label.setConfidence(confidence);
                             labels.add(label);
                         }
                     }
@@ -96,6 +99,7 @@ public class ImageService {
 
         return labels;
     }
+
 
     public String extractErrorMessageFromJson(String jsonResponse) {
         String errorMessage = "";
