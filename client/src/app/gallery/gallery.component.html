@@ -1,19 +1,25 @@
 
 <ics-menu>
+<div>
+    <label for="searchInput" class="clr-sr-only">Search</label>
+    <cds-icon shape="search"></cds-icon>
+    <input id="searchInput" type="text" placeholder="Search..." class="clr-input">
+    <button>Search</button>
+</div>    
+      
 <div *ngFor="let image of images">
     <div class="clr-row">
         <div class="clr-col-lg-6 clr-col-12">
-            <a href="..." class="card clickable">
                 <div class="card-img">
                     <img [src]="image.url">
                 </div>
                 <div class="card-block">
-                    <p class="card-text">
-                        
-                    </p>
+                        <ng-container *ngFor="let label of image.labels">
+                            <div class="label">{{label.name}}</div>
+                        </ng-container>
                 </div>
-            </a>
         </div>
     </div>
 </div>
+
 </ics-menu>

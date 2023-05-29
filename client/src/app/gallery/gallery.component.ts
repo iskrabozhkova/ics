@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { ClarityIcons, searchIcon } from '@cds/core/icon';
 import { ImageService } from '../service/image.service';
 import { Image } from '../interfaces/image';
 
