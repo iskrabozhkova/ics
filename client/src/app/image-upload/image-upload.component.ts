@@ -18,54 +18,55 @@ import { Observable } from 'rxjs';
 export class ImageUploadComponent {
   isLoading: boolean = false;
 
-  errorMessage : string = '';
+  errorMessage: string = '';
 
-  id$ : Observable<string | null>;
+  id$: Observable<string | null>;
 
   uploadForm = new FormGroup({
     inputText: new FormControl('', [Validators.required]),
   });
 
-
   get inputText() {
     return this.uploadForm.get('inputText');
   }
 
-  constructor(private imageService : ImageService, private router: Router, private store : Store<ImageState>) {
+  constructor(
+    private imageService: ImageService,
+    private router: Router,
+    private store: Store<ImageState>,
+  ) {
     this.id$ = this.store.select('id');
   }
 
-
   onUploadImage(): void {
     const url = this.uploadForm.get('inputText')!.value;
-    
-    getImageDimensions(url)
-      .then((dimensions) => {
-        this.isLoading = true;
-        const image: Image = {
-          url: url,
-          analysisService: 'Imagga',
-          date: Date().toString(),
-          width: dimensions.width,
-          height: dimensions.height,
-        };
-  
-        this.imageService.uploadImage(image).subscribe({
-          next: (response: any) => {
-            const imageId = response.imageId;
-            this.store.dispatch(setImageId({ id: imageId }));
-            this.router.navigate(['/images', imageId]);
-          },
-          error: (error: any) => {
-            this.isLoading = false;
-            console.log(error);
-            this.errorMessage = 'An error occurred while uploading the image. Please try again later.';
-          },
-          complete: () => {
-            this.isLoading = false;
-          },
-        });
+
+    getImageDimensions(url).then((dimensions) => {
+      this.isLoading = true;
+      const image: Image = {
+        url: url,
+        analysisService: 'Imagga',
+        date: Date().toString(),
+        width: dimensions.width,
+        height: dimensions.height,
+      };
+
+      this.imageService.uploadImage(image).subscribe({
+        next: (response: any) => {
+          const imageId = response.imageId;
+          this.store.dispatch(setImageId({ id: imageId }));
+          this.router.navigate(['/images', imageId]);
+        },
+        error: (error: any) => {
+          this.isLoading = false;
+          console.log(error);
+          this.errorMessage =
+            'An error occurred while uploading the image. Please try again later.';
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
       });
+    });
   }
-  
 }

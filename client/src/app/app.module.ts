@@ -13,7 +13,7 @@ import { MenuComponent } from './menu/menu.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDetailsComponent } from './image-details/image-details.component';
 import { imageReducer } from './state/image.reducer';
-
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -23,6 +23,7 @@ import { imageReducer } from './state/image.reducer';
     MenuComponent,
     GalleryComponent,
     ImageDetailsComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

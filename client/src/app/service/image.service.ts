@@ -25,4 +25,10 @@ export class ImageService {
   getImageById(imageId : string): Observable<Image> {
     return this.http.get<Image>(`${ this.apiUrl }/${ imageId }`);
   }
+
+  searchByLabels(labels : string) : Observable<Image[]> {
+    const url = `${ this.apiUrl }?labels=${ labels }`;
+
+    return this.http.get<Image[]>(url);
+  }
 }
