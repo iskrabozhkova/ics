@@ -4,9 +4,11 @@ import com.example.demo.RestAssuredTests.actors.Actors;
 import com.example.demo.models.Image;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class EndToEndTest extends BaseTest {
     @Test
     public void testIssueE2E() {
