@@ -1,19 +1,18 @@
-
 <ics-menu>
-<div *ngFor="let image of images">
-    <div class="clr-row">
+    <ics-search (searchedTextChanged)="onSearchTextEntered($event)"></ics-search>
+    <div *ngFor="let image of images">
+      <div class="clr-row" class="image-container">
         <div class="clr-col-lg-6 clr-col-12">
-            <a href="..." class="card clickable">
-                <div class="card-img">
-                    <img [src]="image.url">
-                </div>
-                <div class="card-block">
-                    <p class="card-text">
-                        
-                    </p>
-                </div>
-            </a>
+          <div class="card-img">
+            <img [src]="image.url">
+          </div>
+          <div class="card-block">
+            <ng-container *ngFor="let label of image.labels">
+              <div class="label">{{label.name}}</div>
+            </ng-container>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</ics-menu>
+  </ics-menu>
+  

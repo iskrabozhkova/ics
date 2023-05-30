@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.example.demo.RestAssuredTests.actors.Actors;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FunctionalTests extends BaseTest {
     Actors actor = new Actors(reqSpec);
 
