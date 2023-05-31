@@ -8,9 +8,12 @@
         <ng-content></ng-content> 
       </div>
       <clr-vertical-nav>
-        <a routerLink="/">Upload image</a>
+        <a clrVerticalNavLink routerLink="/" >Upload image</a>
+        <a clrVerticalNavLink routerLink="/gallery" >Gallery</a>
+        <a clrVerticalNavLink routerLinkActive="active" [routerLink]="imageId">View uploaded image</a>
+        <!-- <a routerLink="/">Upload image</a>
         <a routerLink="/gallery">Gallery</a>
-        <a [routerLink]="imageId">Single image</a>
+        <a [routerLink]="imageId">Single image</a> -->
       </clr-vertical-nav>
     </div>
   </div>

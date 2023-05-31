@@ -1,4 +1,35 @@
-.label{
-    border: 1px solid black;
-    border-radius: 10%;
+.modal-body{
+  height: 250px;
 }
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .card {
+    width: calc(25% - .5rem);
+    min-width: 10rem;
+    margin: .25rem .25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card-block {
+    text-align: center;
+  }
+  
+  img {
+    width: 100%;
+  }
+  
+  .label {
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  

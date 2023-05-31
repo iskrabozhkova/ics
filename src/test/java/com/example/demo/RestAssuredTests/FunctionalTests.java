@@ -3,14 +3,21 @@ package com.example.demo.RestAssuredTests;
 import com.example.demo.URLTemplate;
 import com.example.demo.models.Image;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.response.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.example.demo.RestAssuredTests.actors.Actors;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -70,14 +77,32 @@ public class FunctionalTests extends BaseTest {
 
     @Test
     public void testGetImageById200() {
+        String imageUrl = "https://cdn.pixabay.com/photo/2018/11/17/22/15/trees-3822149_960_720.jpg";
+        actor.createImage(imageUrl);
+
+        List<Image> images = actor.getImages();
+        Long createdImageId = actor.getImageIdByUrl(images, imageUrl);
+
         given()
                 .spec(reqSpec)
                 .when()
-                .get(URLTemplate.BasicURLTemplate + "/1")
+                .get(URLTemplate.BasicURLTemplate + "/" + createdImageId)
                 .then()
                 .assertThat()
                 .statusCode(200)
                 .body("labels", notNullValue());
+
+//        given()
+//                .spec(reqSpec)
+//                .when()
+//                .get(URLTemplate.BasicURLTemplate + "/1")
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .body("labels", notNullValue());
+
+        Long imageToDeleteId = actor.getImageId(images, imageUrl);
+        actor.deleteImageById(imageToDeleteId);
     }
 
     @Test

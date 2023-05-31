@@ -1,7 +1,7 @@
 import { Label } from './label';
 
 export interface Image {
-  id?: number;
+  imageId?: number;
   url: string | null;
   analysisService: string;
   date: string;
