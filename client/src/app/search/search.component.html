@@ -1,9 +1,13 @@
 <div class="search-container">
-    <!-- <input type="text" [(ngModel)]="enteredSearchValue" (input)="onSearchTextChanged()"> -->
-    <clr-datalist-container>
-        <input clrDatalistInput [(ngModel)]="enteredSearchValue" (input)="onSearchTextChanged()">
-        <datalist>
-            <option *ngFor="let item of options" [value]="item"></option>
-        </datalist>
-    </clr-datalist-container>
+  <clr-datalist-container>
+    <input
+      clrDatalistInput
+      [(ngModel)]="enteredSearchValue"
+      (input)="onSearchTextChanged()"
+      placeholder="Enter labels"
+    />
+    <datalist>
+      <option *ngFor="let item of options" [value]="item"></option>
+    </datalist>
+  </clr-datalist-container>
 </div>

@@ -31,4 +31,8 @@ export class ImageService {
 
     return this.http.get<Image[]>(url);
   }
+
+  deleteImage(imageId? : number) : Observable<string> {
+    return this.http.delete(`${ this.apiUrl }/${ imageId }`, { responseType: 'text' });
+  }
 }

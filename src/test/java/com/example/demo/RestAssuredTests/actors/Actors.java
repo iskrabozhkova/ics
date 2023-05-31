@@ -86,6 +86,14 @@ public class Actors {
         }
         return false;
     }
+    public Long getImageIdByUrl(List<Image> images, String imageUrl) {
+        for (Image img : images) {
+            if (img.getUrl().equals(imageUrl)) {
+                return img.getImageId();
+            }
+        }
+        return 1L;
+    }
 
     public Long getImageId(List<Image> images, String imageUrl) {
         for (Image img : images) {

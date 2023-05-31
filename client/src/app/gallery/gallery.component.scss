@@ -1,16 +1,17 @@
-.label {
-    border: 1px solid black;
-    border-radius: 10%;
-  }
-  
-  .card-container {
+.modal-body{
+  height: 250px;
+}
+.card-container {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-between;
+    justify-content: space-between;
   }
   
   .card {
-    width: 60%;
+    width: calc(25% - .5rem);
+    min-width: 10rem;
+    margin: .25rem .25rem;
     margin-bottom: 1rem;
   }
   
@@ -24,7 +25,11 @@
   
   .label {
     margin-top: 0.5rem;
+    cursor: pointer;
   }
-  
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+  }
   
   

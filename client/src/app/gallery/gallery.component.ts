@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class GalleryComponent implements OnInit {
   images: Image[] = [];
 
-  searchText : string = '';
+  searchText: string = '';
 
   basic = false;
 
@@ -22,7 +22,7 @@ export class GalleryComponent implements OnInit {
     this.onGetImages();
   }
 
-  constructor(private imageService: ImageService, private router: Router,) {}
+  constructor(private imageService: ImageService, private router: Router) {}
 
   onGetImages(): void {
     this.imageService.getImages().subscribe({
@@ -34,7 +34,7 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-  onGetImagesWithLabels() : void {
+  onGetImagesWithLabels(): void {
     this.imageService.searchByLabels(this.searchText).subscribe({
       next: (response) => {
         this.images = response;
@@ -44,7 +44,7 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-  onSearchTextEntered(searchValue :string) {
+  onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;
     this.onGetImagesWithLabels();
   }
@@ -54,7 +54,19 @@ export class GalleryComponent implements OnInit {
     this.basic = true;
   }
 
-  showFullInfo(imageId? : number) {
+  showFullInfo(imageId?: number) {
     this.router.navigate(['/images', imageId]);
+  }
+
+  deleteImage(imageId?: number) {
+    this.imageService.deleteImage(imageId).subscribe({
+      next: (response) => {
+        this.images = [...this.images.filter((image) => image.imageId !== imageId)];
+        console.log(this.images);
+        console.log(response);
+      },
+      error: (error) => console.log(error),
+      complete: () => console.log('Deleting done'),
+    });
   }
 }
