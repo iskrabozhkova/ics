@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../service/image.service';
 import { Image } from '../interfaces/image';
 import { Label } from '../interfaces/label';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ics-gallery',
@@ -13,11 +14,15 @@ export class GalleryComponent implements OnInit {
 
   searchText : string = '';
 
+  basic = false;
+
+  remainingLabels?: Label[] = [];
+
   ngOnInit(): void {
     this.onGetImages();
   }
 
-  constructor(private imageService: ImageService) {}
+  constructor(private imageService: ImageService, private router: Router,) {}
 
   onGetImages(): void {
     this.imageService.getImages().subscribe({
@@ -44,4 +49,12 @@ export class GalleryComponent implements OnInit {
     this.onGetImagesWithLabels();
   }
 
+  showRemainingLabels(labels?: Label[]): void {
+    this.remainingLabels = labels;
+    this.basic = true;
+  }
+
+  showFullInfo(imageId? : number) {
+    this.router.navigate(['/images', imageId]);
+  }
 }

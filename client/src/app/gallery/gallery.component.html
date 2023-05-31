@@ -1,18 +1,41 @@
 <ics-menu>
-    <ics-search (searchedTextChanged)="onSearchTextEntered($event)"></ics-search>
-    <div *ngFor="let image of images">
-      <div class="clr-row" class="image-container">
-        <div class="clr-col-lg-6 clr-col-12">
-          <div class="card-img">
+  <ics-search (searchedTextChanged)="onSearchTextEntered($event)"></ics-search>
+  <div class="clr-row">
+    <div class="clr-col-lg-5 clr-col-md-8 clr-col-12">
+      <div class="card-container">
+        <div class="card" *ngFor="let image of images">
+          <div class="card-block">
             <img [src]="image.url">
           </div>
-          <div class="card-block">
-            <ng-container *ngFor="let label of image.labels">
-              <div class="label">{{label.name}}</div>
+          <div class="card-footer">
+            <ng-container *ngFor="let label of image.labels; let i = index">
+              <div class="label" [hidden]="i >= 5">{{label.name}}</div>
+              <button class="label" [hidden]="i !== 5" (click)="showRemainingLabels(image?.labels?.slice(5))">...</button> 
             </ng-container>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-info-outline" (click)="showFullInfo(image.imageId)">View full info</button>
+            <button class="btn btn-warning-outline">Delete</button>
           </div>
         </div>
       </div>
     </div>
-  </ics-menu>
+  </div>
+  <clr-modal [(clrModalOpen)]="basic">
+    <h3 class="modal-title">Other</h3>
+    <div class="modal-body">
+      <div *ngFor="let label of remainingLabels">
+        {{ label.name }}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="basic = false">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="basic = false">Ok</button>
+    </div>
+  </clr-modal>
   
+</ics-menu>
+
+
+
+

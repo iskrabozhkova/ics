@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { MenuComponent } from './menu/menu.component';
@@ -30,6 +31,7 @@ import { SearchComponent } from './search/search.component';
     AppRoutingModule,
     HttpClientModule,
     ClarityModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot({ message: imageReducer }),
