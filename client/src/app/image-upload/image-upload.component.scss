@@ -2,8 +2,23 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 40vh;
 }
 .clr-control-label{
     margin: 20%;
+}
+input{
+    border: 1px solid black;
+    outline:none;
+    display:inline-block;
+    height: 2rem;
+    border-radius:22px;
+    width: 32rem;
+    box-sizing: border-box;
+    padding:0 2%; 
+    margin: 3%;
+}
+.error{
+    margin: 10rem;
+    height: 200px !important;
 }

@@ -1,10 +1,11 @@
 <ics-menu>
+  <h2>Welcome to Detective Imagga!</h2>
+  <h5>Enter image url and Detective Imagga will tell you everything about the image behind it</h5>
 <form [formGroup]="uploadForm" clrForm>
     <div class="clr-form-control" [class.clr-error]="inputText?.invalid && inputText?.touched">
       <div class="clr-control-container">
         <div class="clr-input-wrapper">
-          <label for="urlInput" class="clr-control-label">Enter image url and I will tell you everything about the image behind it:</label>
-          <input type="text" id="urlInput" placeholder="Enter image url" class="clr-input" formControlName="inputText" />
+          <input type="text" id="urlInput" placeholder="Enter image url" formControlName="inputText" />
           <cds-icon class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
           <button [disabled]="uploadForm.invalid" 
           type="submit" 
@@ -12,8 +13,8 @@
           (click)="onUploadImage()">Submit
   </button>
         </div>
-        <span clr-subtext *ngIf="inputText?.invalid && inputText?.touched">This filed is required!</span>
-        <span clr-subtext *ngIf="errorMessage">{{ errorMessage }}</span>
+        <span class="error" clr-subtext *ngIf="inputText?.invalid && inputText?.touched">This filed is required!</span>
+        <span class="error" clr-subtext *ngIf="errorMessage">{{ errorMessage }}</span>
       </div>
     </div>
     <span class="spinner" *ngIf="isLoading">

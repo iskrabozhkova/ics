@@ -4,17 +4,26 @@ ul {
   
   li {
     position: relative;
-    padding-top: 20px;
+    padding: 0px;
+    margin: 0px;
+    height: 1.75rem;
   }
   
   .label-info {
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
     align-items: center;
     font-weight: bold;
-    padding: 5px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;  
+  }
+
+  .progress-bar{
+    height: 60px;
+    margin: 0.01%;
+    width: 85%;
   }
   
   .progress {
@@ -22,12 +31,50 @@ ul {
     height: 100%;
     margin: 30%;
   }
-  
   .confidence {
-    //position: absolute;
+    //text-align: right;
+    margin-left: auto;
     top: 0;
-    padding: 5px;
-
+  }
+  .container {
+    display: flex;
   }
   
+  .image-container {
+    flex: 1;
+  }
   
+  .label-container {
+    flex-basis: 32%;
+    padding-top: 2%;
+  }
+  .label-name{
+    padding: 20px;
+  }
+  .confidence{
+    padding-left: 50px;
+  }
+  
+  .container{
+    // border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    padding-right: 5%;
+  }
+  .card-img{
+    width: 100%;
+  }
+  .clr-row{
+    width: 32rem;
+  }
+  h5{
+    font-weight: bold;
+  }
+  .image-prop{
+    margin: 1%;
+  }
+  span{
+    margin: 5rem;
+  }

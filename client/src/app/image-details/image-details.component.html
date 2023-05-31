@@ -1,35 +1,50 @@
 <ics-menu *ngIf="image$ | async; let image">
+  <h2>Uploaded image analysis</h2>
+  <div class="container">
   <div class="image-container">
     <div class="clr-row">
-      <div class="clr-col-lg-6 clr-col-12">
-        <a href="..." class="card clickable">
-          <div class="card-img">
-            <img [src]="image.url" />
+      <div>
+          <div class="card">
+              <div class="card-block">
+                  <div class="card-text">
+                    <div class="card-img">
+                      <img [src]="image.url" />
+                    </div>
+                  </div>
+              </div>
           </div>
-          <div class="card-block">
-            <p>Analysis Service: {{ image.analysisService }}</p>
-            <p>Width: {{ image.width }}</p>
-            <p>Height: {{ image.height }}</p>
-          </div>
-        </a>
       </div>
-    </div>
   </div>
-  <h2>Labels:</h2>
+  </div>
+
+  <div class="label-container">
+  <h5>Labels:</h5>
   <ul>
-    <ng-container *ngFor="let label of image.labels">
-      <li>
+    <ng-container *ngFor="let label of image.labels;let i = index">
+      <li [hidden]="i >= 6">
         <div class="label-info">
           <span class="label-name">{{ label.name }}</span>
-          <span class="confidence">{{ label.confidence }}%</span>
+          <span class="confidence">{{ label.confidence.toFixed(0) }}%</span>
         </div>
         <progress
           class="progress-bar"
           max="100"
           [value]="label.confidence"
           [attr.data-displayval]="label.confidence + '%'"
-        ></progress>
+        >
+      
+      </progress>
       </li>
     </ng-container>
   </ul>
+  <div class="card-footer">
+    <h5>Url:</h5>
+    <p class="image-prop">{{ image.url }}</p>
+    <h5>Width</h5>
+    <p class="image-prop">{{ image.width }}</p>
+    <h5>Height</h5>
+    <p class="image-prop">{{ image.height }}</p>
+  </div>
+  </div>
+</div>
 </ics-menu>

@@ -1,20 +1,40 @@
 <div class="main-container">
     <div class="alert alert-app-level">
     </div>
+    
     <header class="header header-6">
+      <div class="branding">
+            <!-- <cds-icon shape="vm-bug"></cds-icon> -->
+            <span class="title">Detective Imagga</span>
+    </div>
+      <div class="header-nav">
+        <a clrVerticalNavLink href="/" class="nav-link" routerLink="/" >Upload image</a>
+          <a clrVerticalNavLink routerLink="/gallery" >Gallery</a>
+          <a clrVerticalNavLink routerLinkActive="active" [routerLink]="imageId">View uploaded image</a>
+      </div>
     </header>
     <div class="content-container">
       <div class="content-area">
         <ng-content></ng-content> 
       </div>
-      <clr-vertical-nav>
+      <!-- <clr-vertical-nav>
         <a clrVerticalNavLink routerLink="/" >Upload image</a>
         <a clrVerticalNavLink routerLink="/gallery" >Gallery</a>
         <a clrVerticalNavLink routerLinkActive="active" [routerLink]="imageId">View uploaded image</a>
-        <!-- <a routerLink="/">Upload image</a>
-        <a routerLink="/gallery">Gallery</a>
-        <a [routerLink]="imageId">Single image</a> -->
-      </clr-vertical-nav>
+      </clr-vertical-nav> -->
     </div>
   </div>
-  
+
+  <!-- <header class="header-6">
+    <div class="branding">
+        <a href="..." class="nav-link">
+            <cds-icon shape="vm-bug"></cds-icon>
+            <span class="title">Clarity Design</span>
+        </a>
+    </div>
+    <div class="header-nav">
+      <a clrVerticalNavLink href="/" class="nav-link" routerLink="/" >Upload image</a>
+        <a clrVerticalNavLink routerLink="/gallery" >Gallery</a>
+        <a clrVerticalNavLink routerLinkActive="active" [routerLink]="imageId">View uploaded image</a>
+    </div>
+</header> -->
