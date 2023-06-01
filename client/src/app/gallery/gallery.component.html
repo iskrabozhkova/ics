@@ -1,6 +1,7 @@
 <ics-menu>
+  <h2 id="heading">Gallery</h2>
   <ics-search (searchedTextChanged)="onSearchTextEntered($event)"></ics-search>
-  <div class="clr-row">
+  <div class="clr-row" id="container">
     <div class="clr-col-12">
       <div class="card-container">
         <div class="card" *ngFor="let image of images">
