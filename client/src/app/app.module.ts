@@ -15,6 +15,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDetailsComponent } from './image-details/image-details.component';
 import { imageReducer } from './state/image.reducer';
 import { SearchComponent } from './search/search.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SearchComponent } from './search/search.component';
     GalleryComponent,
     ImageDetailsComponent,
     SearchComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

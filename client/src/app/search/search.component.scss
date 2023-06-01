@@ -1,0 +1,16 @@
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+  }
+
+#search-input{
+    border: 1px solid black;
+    outline:none;
+    display:inline-block;
+    padding: 15px;
+    border-radius:22px;
+    width: 32rem;
+    box-sizing: border-box;
+}

@@ -19,10 +19,9 @@ export class MenuComponent {
 
   imageId: string = '';
 
-  constructor(private store : Store<AppState>) {
-    this.store.select('message').subscribe(res => {
-      this.imageId = `/images/${ res.id }`;
-      console.log(this.imageId);
+  constructor(private store: Store<AppState>) {
+    this.store.select('message').subscribe((res) => {
+      this.imageId = `/images/${res.id}`;
     });
   }
 }

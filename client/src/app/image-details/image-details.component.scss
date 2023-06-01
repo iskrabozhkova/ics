@@ -4,30 +4,62 @@ ul {
   
   li {
     position: relative;
-    padding-top: 20px;
+    padding: 0px;
+    margin: 0px;
+    height: 1.75rem;
   }
   
-  .label-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    padding: 5px;
+  .progress-bar{
+    height: 2.5rem;
+    width: 12rem;
   }
-  
-  .progress {
-    width: 0;
-    height: 100%;
-    margin: 30%;
-  }
-  
-  .confidence {
-    //position: absolute;
-    top: 0;
-    padding: 5px;
+  .label-info{
+    position: relative;
+    top: 37px;
 
   }
+
+  .progress {
+    width: 0;
+    height: 15rem;
+    margin: 30%;
+  }
+  .confidence {
+    margin-left: auto;
+    top: 0;
+
+  }
+  .container {
+    display: flex;
+  }
   
+  .image-container {
+    flex: 1;
+  }
   
+  .label-container {
+    flex-basis: 32%;
+    padding-top: 2%;
+  }
+  .container{
+    align-items: center;
+    justify-content: center;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    padding-right: 5%;
+  }
+  .card-img{
+    width: 100%;
+  }
+  .clr-row{
+    width: 32rem;
+  }
+  h5{
+    font-weight: bold;
+  }
+  .image-prop{
+    margin: 1%;
+  }
+  span{
+    margin: 1rem;
+  }

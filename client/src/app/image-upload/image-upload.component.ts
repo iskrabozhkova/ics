@@ -46,7 +46,7 @@ export class ImageUploadComponent {
       const image: Image = {
         url: url,
         analysisService: 'Imagga',
-        date: Date().toString(),
+        uploadedAt: Date().toString(),
         width: dimensions.width,
         height: dimensions.height,
       };

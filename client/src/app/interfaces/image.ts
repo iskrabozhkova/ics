@@ -4,7 +4,7 @@ export interface Image {
   imageId?: number;
   url: string | null;
   analysisService: string;
-  date: string;
+  uploadedAt: string;
   width: number;
   height: number;
   labels?: Label[];
