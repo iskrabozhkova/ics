@@ -11,13 +11,12 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './image-details.component.html',
   styleUrls: ['./image-details.component.scss'],
 })
-
 export class ImageDetailsComponent implements OnInit {
   image$: Observable<Image> | null = null;
 
   constructor(
     private imageService: ImageService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {

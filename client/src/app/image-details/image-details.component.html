@@ -22,7 +22,7 @@
   <ul>
     <ng-container *ngFor="let label of image.labels;let i = index">
       <li [hidden]="i >= 6">
-        <div class="label-info">
+        <div class="label-info" >
           <span class="label-name">{{ label.name }}</span>
           <span class="confidence">{{ label.confidence.toFixed(0) }}%</span>
         </div>
@@ -31,8 +31,9 @@
           max="100"
           [value]="label.confidence"
           [attr.data-displayval]="label.confidence + '%'"
+          data-displayval="0%"
         >
-      
+        
       </progress>
       </li>
     </ng-container>

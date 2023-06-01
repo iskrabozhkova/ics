@@ -9,32 +9,25 @@ ul {
     height: 1.75rem;
   }
   
-  .label-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    align-items: center;
-    font-weight: bold;
-    padding: 0px;
-    display: flex;
-    justify-content: space-between;  
+  .progress-bar{
+    height: 2.5rem;
+    width: 12rem;
+  }
+  .label-info{
+    position: relative;
+    top: 37px;
+
   }
 
-  .progress-bar{
-    height: 60px;
-    margin: 0.01%;
-    width: 85%;
-  }
-  
   .progress {
     width: 0;
-    height: 100%;
+    height: 15rem;
     margin: 30%;
   }
   .confidence {
-    //text-align: right;
     margin-left: auto;
     top: 0;
+
   }
   .container {
     display: flex;
@@ -48,15 +41,7 @@ ul {
     flex-basis: 32%;
     padding-top: 2%;
   }
-  .label-name{
-    padding: 20px;
-  }
-  .confidence{
-    padding-left: 50px;
-  }
-  
   .container{
-    // border: 1px solid black;
     align-items: center;
     justify-content: center;
     padding-left: 5%;
@@ -76,5 +61,5 @@ ul {
     margin: 1%;
   }
   span{
-    margin: 5rem;
+    margin: 1rem;
   }
