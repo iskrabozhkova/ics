@@ -9,11 +9,9 @@ import { IconsService } from '../service/IconsService';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  enteredSearchValue: string = '';
 
-  enteredSearchValue : string = '';
-  
-  options : string[] = [];
-
+  options: string[] = [];
 
   ngOnInit(): void {
     this.labelService.getLabels().subscribe({
@@ -27,15 +25,14 @@ export class SearchComponent implements OnInit {
       },
     });
   }
-  
 
   @Output()
-    searchedTextChanged : EventEmitter<string> = new EventEmitter<string>();
+    searchedTextChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private labelService: LabelService,
     private iconsService: IconsService,
-  ) { }
+  ) {}
 
   onSearchTextChanged() {
     this.searchedTextChanged.emit(this.enteredSearchValue);
