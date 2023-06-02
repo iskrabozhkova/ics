@@ -6,12 +6,27 @@
       <span class="title">Detective Imagga</span>
     </div>
     <div class="header-nav">
-      <a clrVerticalNavLink href="/" class="nav-link" routerLink="/"
-        >Upload image</a
-      >
-      <a clrVerticalNavLink routerLink="/gallery">Gallery</a>
       <a
         clrVerticalNavLink
+        href="/"
+        class="nav-link"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Upload image</a
+      >
+
+      <a
+        clrVerticalNavLink
+        routerLink="/gallery"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Gallery</a
+      >
+
+      <a
+        clrVerticalNavLink
+        [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="active"
         [routerLink]="imageId !== '/images/null' ? imageId : '/error'"
         >View uploaded image</a
