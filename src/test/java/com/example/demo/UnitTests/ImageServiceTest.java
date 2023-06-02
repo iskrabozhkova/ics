@@ -49,8 +49,8 @@ class ImageServiceTest {
 
     @Test
     void getAllImages() {
-        Image image1 = new Image(1L, "imageUrl1", LocalDate.now(), "analysisService", 800, 600, new ArrayList<>());
-        Image image2 = new Image(2L, "imageUrl2", LocalDate.now(), "analysisService", 1000, 900, new ArrayList<>());
+        Image image1 = new Image(1L, "imageUrl1", "analysisService", 800, 600, new ArrayList<>());
+        Image image2 = new Image(2L, "imageUrl2", "analysisService", 1000, 900, new ArrayList<>());
         List<Image> expectedImages = Arrays.asList(image1, image2);
 
         when(imageRepository.findAll()).thenReturn(expectedImages);
@@ -77,8 +77,8 @@ class ImageServiceTest {
 
         List<String> labels = Arrays.asList(label1.getName(), label2.getName());
 
-        Image image1 = new Image(1L, "imageUrl1", LocalDate.now(), "analysisService", 800, 600, Arrays.asList(label1, label2));
-        Image image2 = new Image(2L, "imageUrl2", LocalDate.now(), "analysisService", 1000, 900, Arrays.asList(label1));
+        Image image1 = new Image(1L, "imageUrl1", "analysisService", 800, 600, Arrays.asList(label1, label2));
+        Image image2 = new Image(2L, "imageUrl2", "analysisService", 1000, 900, Arrays.asList(label1));
 
         List<Image> expectedImages = Arrays.asList(image1, image2);
 
@@ -113,7 +113,7 @@ class ImageServiceTest {
     @Test
     void getImageById() {
         Long imageId = 1L;
-        Image expectedImage = new Image(imageId, "imageUrl", LocalDate.now(), "analysisService", 800, 200, new ArrayList<>());
+        Image expectedImage = new Image(imageId, "imageUrl", "analysisService", 800, 200, new ArrayList<>());
 
         when(imageRepository.findById(imageId)).thenReturn(Optional.of(expectedImage));
 

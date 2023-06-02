@@ -27,7 +27,9 @@ public class Image {
     private Long imageId;
     @Column(nullable = false)
     private String url;
-    private LocalDate uploadedAt;
+//    @Column()
+//    private String uploadedAt;
+    @Column()
     private String analysis_service;
     @Column()
     private Integer width;
@@ -48,10 +50,10 @@ public class Image {
     public Image() {
     }
 
-    public Image(Long imageId, String url, LocalDate uploadedAt, String analysis_service, Integer width, Integer height, List<Label> labels) {
+    public Image(Long imageId, String url, String analysis_service, Integer width, Integer height, List<Label> labels) {
         this.imageId = imageId;
         this.url = url;
-        this.uploadedAt = uploadedAt;
+//        this.uploadedAt = uploadedAt;
         this.analysis_service = analysis_service;
         this.width = width;
         this.height = height;
@@ -74,13 +76,13 @@ public class Image {
         this.url = url;
     }
 
-    public LocalDate getUploadedAt() {
-        return uploadedAt;
-    }
-
-    public void setUploadedAt(LocalDate uploadedAt) {
-        this.uploadedAt = uploadedAt;
-    }
+//    public String getUploadedAt() {
+//        return uploadedAt;
+//    }
+//
+//    public void setUploadedAt(String uploadedAt) {
+//        this.uploadedAt = uploadedAt;
+//    }
 
     public String getAnalysis_service() {
         return analysis_service;
