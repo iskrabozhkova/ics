@@ -17,10 +17,18 @@
     min-width: 10rem;
     margin: .25rem .25rem;
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .card-block {
     text-align: center;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    flex-grow: 0;
   }
   
   img {

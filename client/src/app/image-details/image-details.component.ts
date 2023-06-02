@@ -16,7 +16,7 @@ export class ImageDetailsComponent implements OnInit {
 
   constructor(
     private imageService: ImageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

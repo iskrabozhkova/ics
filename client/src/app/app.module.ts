@@ -6,6 +6,7 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
 import { imageReducer } from './state/image.reducer';
 import { SearchComponent } from './search/search.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-
+// eslint-disable-next-line import/extensions
 
 @NgModule({
   declarations: [

@@ -12,6 +12,15 @@ ul {
   .progress-bar{
     height: 2.5rem;
     width: 12rem;
+    color: aquamarine;
+  }
+
+  progress::-webkit-progress-bar {
+    background: #eeeeee6a;
+  }
+
+  progress::-webkit-progress-value {
+    background-color: #eeeeee6a;
   }
   .label-info{
     position: relative;
@@ -19,11 +28,11 @@ ul {
 
   }
 
-  .progress {
-    width: 0;
-    height: 15rem;
-    margin: 30%;
-  }
+  // .progress {
+  //   width: 0;
+  //   height: 15rem;
+  //   margin: 30%;
+  // }
   .confidence {
     margin-left: auto;
     top: 0;
@@ -35,15 +44,21 @@ ul {
   
   .image-container {
     flex: 1;
+    // margin-left: 0;
   }
   
   .label-container {
     flex-basis: 32%;
     padding-top: 2%;
+
+    --clr-progress-bg-color: lightgray;
+    --clr-progress-default-color: orange;
   }
   .container{
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
     justify-content: center;
+    gap: 0%;
     padding-left: 5%;
     padding-bottom: 5%;
     padding-right: 5%;

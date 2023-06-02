@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LabelService } from '../service/label.service';
 import { Label } from '../interfaces/label';
+import { IconsService } from '../service/IconsService';
 
 @Component({
   selector: 'ics-search',
@@ -33,7 +34,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private labelService: LabelService,
-  ) {}
+    private iconsService: IconsService,
+  ) { }
 
   onSearchTextChanged() {
     this.searchedTextChanged.emit(this.enteredSearchValue);
