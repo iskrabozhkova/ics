@@ -66,5 +66,5 @@ jobs:
           npm install karma-puppeteer-launcher --save-dev
 
       - name: Run frontend tests
-        run: ng test --configuration=ci
+        run: npx ng test
         working-directory: ics
