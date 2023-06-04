@@ -47,7 +47,7 @@ jobs:
           npm-version: 8
       - name: Install dependencies
         run: npm install
-        working-directory: ./ 
+        working-directory: /home/runner/work/ics/ics
         
       - name: Build Angular app
         run: npm run build
