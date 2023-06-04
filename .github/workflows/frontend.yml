@@ -40,17 +40,15 @@ jobs:
       - name: Run SpotBugs Analysis
         run: mvn spotbugs:check
         
-      - name: Setup Node.js
+      - name: Setup Node.js and npm
         uses: actions/setup-node@v2
         with:
           node-version: 18.16.0
-      - name: Print current working directory
-        run: |
-         echo "working directory:"
-         pwd
+          npm-version: 8
       - name: Install dependencies
         run: npm install
-
+        working-directory: ./ 
+        
       - name: Build Angular app
         run: npm run build
 
