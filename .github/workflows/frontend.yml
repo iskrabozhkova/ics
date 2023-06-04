@@ -44,7 +44,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18.16.0
-
+      - name: Print current working directory
+        run: |
+         echo "working directory:"
+         pwd
       - name: Install dependencies
         run: npm install
 
