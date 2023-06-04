@@ -19,29 +19,18 @@
 
     <div class="label-container">
       <h5>Labels:</h5>
-      <ng-container *ngFor="let label of image.labels | slice:0:6; let i = index">
+      <ng-container
+        *ngFor="let label of image.labels | slice : 0 : 6; let i = index"
+      >
         <h4>{{ label.name }}</h4>
 
-        <clr-progress-bar [clrValue]="label.confidence.toFixed(0)" clrMax="100" clrSuccess clrLabeled></clr-progress-bar>
+        <clr-progress-bar
+          [clrValue]="label.confidence.toFixed(0)"
+          clrMax="100"
+          clrSuccess
+          clrLabeled
+        ></clr-progress-bar>
       </ng-container>
-      <!-- <ul>
-        <ng-container *ngFor="let label of image.labels; let i = index">
-          <li [hidden]="i >= 6">
-            <div class="label-info">
-              <span class="label-name">{{ label.name }}</span>
-              <span class="confidence">{{ label.confidence.toFixed(0) }}%</span>
-            </div>
-            <progress
-              class="progress-bar"
-              max="100"
-              [value]="label.confidence"
-              [attr.data-displayval]="label.confidence + '%'"
-              data-displayval="0%"
-              clrSuccess
-            ></progress>
-          </li>
-        </ng-container>
-      </ul> -->
       <div class="card-footer">
         <h5>Url:</h5>
         <p class="image-prop">{{ image.url }}</p>

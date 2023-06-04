@@ -1,80 +1,141 @@
+// ul {
+//   list-style: none;
+// }
+
+// li {
+//   position: relative;
+//   padding: 0px;
+//   margin: 0px;
+//   height: 1.75rem;
+// }
+
+// .progress-bar {
+//   height: 2.5rem;
+//   width: 12rem;
+//   color: aquamarine;
+// }
+
+// progress::-webkit-progress-bar {
+//   background: #eeeeee6a;
+// }
+
+// progress::-webkit-progress-value {
+//   background-color: #eeeeee6a;
+// }
+// .label-info {
+//   position: relative;
+//   top: 37px;
+// }
+
+// .confidence {
+//   margin-left: auto;
+//   top: 0;
+// }
+// .container {
+//   display: flex;
+// }
+
+// .image-container {
+//   flex: 1;
+// }
+
+// .label-container {
+//   flex-basis: 32%;
+//   padding-top: 2%;
+
+//   --clr-progress-bg-color: lightgray;
+//   --clr-progress-default-color: orange;
+// }
+// .container {
+//   display: flex;
+//   align-items: flex-start;
+//   justify-content: center;
+//   gap: 0%;
+//   padding-left: 5%;
+//   padding-bottom: 5%;
+//   padding-right: 5%;
+// }
+// .card-img {
+//   width: 100%;
+// }
+// .clr-row {
+//   width: 32rem;
+// }
+// h5 {
+//   font-weight: bold;
+// }
+// .image-prop {
+//   margin: 1%;
+// }
+// span {
+//   margin: 1rem;
+// }
+
+//------------------------------------------
 ul {
-    list-style: none;
-  }
-  
-  li {
-    position: relative;
-    padding: 0px;
-    margin: 0px;
-    height: 1.75rem;
-  }
-  
-  .progress-bar{
-    height: 2.5rem;
-    width: 12rem;
-    color: aquamarine;
-  }
+  list-style: none;
+}
 
-  progress::-webkit-progress-bar {
-    background: #eeeeee6a;
-  }
+li {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  height: 1.75rem;
+}
+.label-info {
+  position: relative;
+  top: 37px;
+}
 
-  progress::-webkit-progress-value {
-    background-color: #eeeeee6a;
-  }
-  .label-info{
-    position: relative;
-    top: 37px;
+.confidence {
+  margin-left: auto;
+  top: 0;
+}
+.container {
+  display: flex;
+}
 
-  }
+.image-container {
+  flex: 1;
+  margin-right: 0;
+}
 
-  // .progress {
-  //   width: 0;
-  //   height: 15rem;
-  //   margin: 30%;
-  // }
-  .confidence {
-    margin-left: auto;
-    top: 0;
-
-  }
-  .container {
-    display: flex;
-  }
-  
-  .image-container {
-    flex: 1;
-    // margin-left: 0;
-  }
-  
-  .label-container {
-    flex-basis: 32%;
-    padding-top: 2%;
-
-    --clr-progress-bg-color: lightgray;
-    --clr-progress-default-color: orange;
-  }
-  .container{
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0%;
-    padding-left: 5%;
-    padding-bottom: 5%;
-    padding-right: 5%;
-  }
-  .card-img{
-    width: 100%;
-  }
-  .clr-row{
-    width: 32rem;
-  }
-  h5{
-    font-weight: bold;
-  }
-  .image-prop{
-    margin: 1%;
-  }
-  span{
-    margin: 1rem;
-  }
+.label-container {
+  flex-basis: 32%;
+  padding-top: 2%; 
+}
+.container {
+  border: 1px solid black;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-bottom: 2%;
+  padding-right: 5%;
+  width: 90%;
+}
+.card-img {
+  width: 100%;
+}
+.clr-row {
+  width: 32rem;
+}
+h5 {
+  font-weight: bold;
+  margin: 1% 0% 0% 0%;
+}
+.image-prop {
+  margin: 1%;
+}
+span {
+  margin: 1rem;
+}
+h4{
+  margin: 0;
+  font-size: 15px;
+}
+.card-footer{
+  padding: 0;
+}

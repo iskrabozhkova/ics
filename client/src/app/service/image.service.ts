@@ -16,6 +16,10 @@ export class ImageService {
     return this.http.get<Image[]>(this.apiUrl);
   }
 
+  getApiUrl() : string {
+    return this.apiUrl;
+  }
+  
   uploadImage(image : Image) : Observable<Image> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
