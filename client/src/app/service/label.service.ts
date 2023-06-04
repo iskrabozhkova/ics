@@ -12,6 +12,10 @@ export class LabelService {
 
   constructor(private http : HttpClient) {}
 
+  getApiUrl() : string {
+    return this.apiUrl;
+  }
+
   getLabels() : Observable<Label[]> {
     return this.http.get<Label[]>(this.apiUrl);
   }
