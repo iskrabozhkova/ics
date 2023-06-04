@@ -1,0 +1,55 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '18'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Start PostgreSQL
+        run: sudo service postgresql start
+          
+      - name: Configure PostgreSQL
+        run: |
+          sudo -u postgres psql -c "CREATE DATABASE ics;"
+          sudo -u postgres psql -c "CREATE USER myuser WITH ENCRYPTED PASSWORD 'password';"
+          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ics TO postgres;"
+      - name: Build JAR
+        run: mvn clean install -DskipTests
+
+      - name: Run Unit Tests
+        run: mvn test -Dserver.port=8080 -Dspring.datasource.username=myuser -Dspring.datasource.password=password
+
+      - name: Run SpotBugs Analysis
+        run: mvn spotbugs:check
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.16.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Run forntend tests
+        run: npm run test
