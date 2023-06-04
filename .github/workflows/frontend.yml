@@ -57,7 +57,7 @@ jobs:
         working-directory: ics
 
       - name: Build Angular app
-        run: npx ng build --prod
+        run: npx ng build
         working-directory: ics
 
       - name: Run frontend tests
