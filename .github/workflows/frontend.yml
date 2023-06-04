@@ -63,4 +63,4 @@ jobs:
       - name: Run frontend tests
         run: |
           npm install puppeteer --no-fund
-          ng test --browsers PuppeteerNoSandbox
+          npx ng test --browsers PuppeteerNoSandbox
