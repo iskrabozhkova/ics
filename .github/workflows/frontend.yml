@@ -52,7 +52,7 @@ jobs:
         working-directory: /home/runner/work/ics/ics
         
       - name: Build Angular app
-        run: npm run 
+        run: ng build
 
-      - name: Run forntend tests
-        run: npm run test
+      - name: Run frontend tests
+        run: ng test
