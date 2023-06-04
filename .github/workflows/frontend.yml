@@ -61,5 +61,6 @@ jobs:
         working-directory: ics
 
       - name: Run frontend tests
-        run: npx ng test
-        working-directory: ics
+        run: |
+          npm install puppeteer
+          ng test --browsers PuppeteerNoSandbox
