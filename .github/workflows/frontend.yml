@@ -45,6 +45,8 @@ jobs:
         with:
           node-version: 18.16.0
           npm-version: 8
+      - name: Initialize Node.js project
+        run: npm init -y
       - name: Install dependencies
         run: npm install
         working-directory: /home/runner/work/ics/ics
