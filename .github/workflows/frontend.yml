@@ -45,6 +45,8 @@ jobs:
         with:
           node-version: 18.16.0
           npm-version: 8
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
       - name: Initialize Node.js project
         run: npm init -y
       - name: Install dependencies
