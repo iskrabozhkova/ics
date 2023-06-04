@@ -60,8 +60,11 @@ jobs:
         run: npx ng build
         working-directory: ics
 
-      - name: Run frontend tests
+      - name: Setup Puppeteer
         run: |
           npm install puppeteer --no-fund
-          npx ng test --browsers PuppeteerNoSandbox
+          npm install karma-puppeteer-launcher --save-dev
+
+      - name: Run frontend tests
+        run: ng test --configuration=ci
         working-directory: ics
