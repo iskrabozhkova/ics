@@ -5,7 +5,7 @@
       clrDatalistInput
       [(ngModel)]="enteredSearchValue"
       (input)="onSearchTextChanged()"
-      placeholder="Enter labels"
+      placeholder="Enter label names separated with commas"
     />
     <datalist>
       <option *ngFor="let item of options" [value]="item"></option>
