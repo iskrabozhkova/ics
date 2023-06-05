@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ImageService {
     private final ImageRepository imageRepository;
     private final LabelRepository labelRepository;
-    private  final ImaggaAPI imaggaAPI;
+    private final ImaggaAPI imaggaAPI;
 
     public ImageService(ImageRepository imageRepository, LabelRepository labelRepository, ImaggaAPI imaggaAPI) {
         this.imageRepository = imageRepository;

@@ -124,7 +124,7 @@ public class FunctionalTests extends BaseTest {
                 .get(URLTemplate.BasicURLTemplate)
                 .then()
                 .assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchema(new File("src/JSONSchemas/ImagesJsonSchema.json")));
+                .body(JsonSchemaValidator.matchesJsonSchema(new File("src/main/resources/JSONSchemas/ImagesJsonSchema.json")));
     }
 
     @Test
