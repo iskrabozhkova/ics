@@ -1,77 +1,7 @@
-// ul {
-//   list-style: none;
-// }
-
-// li {
-//   position: relative;
-//   padding: 0px;
-//   margin: 0px;
-//   height: 1.75rem;
-// }
-
-// .progress-bar {
-//   height: 2.5rem;
-//   width: 12rem;
-//   color: aquamarine;
-// }
-
-// progress::-webkit-progress-bar {
-//   background: #eeeeee6a;
-// }
-
-// progress::-webkit-progress-value {
-//   background-color: #eeeeee6a;
-// }
-// .label-info {
-//   position: relative;
-//   top: 37px;
-// }
-
-// .confidence {
-//   margin-left: auto;
-//   top: 0;
-// }
-// .container {
-//   display: flex;
-// }
-
-// .image-container {
-//   flex: 1;
-// }
-
-// .label-container {
-//   flex-basis: 32%;
-//   padding-top: 2%;
-
-//   --clr-progress-bg-color: lightgray;
-//   --clr-progress-default-color: orange;
-// }
-// .container {
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: center;
-//   gap: 0%;
-//   padding-left: 5%;
-//   padding-bottom: 5%;
-//   padding-right: 5%;
-// }
-// .card-img {
-//   width: 100%;
-// }
-// .clr-row {
-//   width: 32rem;
-// }
-// h5 {
-//   font-weight: bold;
-// }
-// .image-prop {
-//   margin: 1%;
-// }
-// span {
-//   margin: 1rem;
-// }
-
-//------------------------------------------
+h2{
+  text-align: center;
+  font-weight: bold;
+}
 ul {
   list-style: none;
 }
@@ -105,7 +35,6 @@ li {
   padding-top: 2%; 
 }
 .container {
-  border: 1px solid black;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -114,7 +43,14 @@ li {
   padding-left: 5%;
   padding-bottom: 2%;
   padding-right: 5%;
-  width: 90%;
+  text-align: center;
+  margin: 20px auto;
+  background-color: #ECF3EB;
+  width: 80%;
+  height: 90%;
+  border-radius: 70px;
+  border: 3px solid rgb(0, 139, 42);
+  box-shadow: 0 8px 11px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .card-img {
   width: 100%;

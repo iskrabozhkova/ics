@@ -1,16 +1,17 @@
 <ics-menu>
-  <h2>Welcome to Detective Imagga!</h2>
-  <h5>
-    Enter image url and Detective Imagga will tell you everything about the
-    image behind it
-  </h5>
-  <form [formGroup]="uploadForm" clrForm>
+  <form [formGroup]="uploadForm" clrForm id="form-container">
+    <div id="content-container">
     <div
       class="clr-form-control"
       [class.clr-error]="inputText?.invalid && inputText?.touched"
     >
       <div class="clr-control-container">
         <div class="clr-input-wrapper">
+          <h2 class="heading">Welcome to Detective Imagga!</h2>
+          <h5 class="heading">
+            Enter url and Detective Imagga will tell you everything about the
+            image behind it
+          </h5>
           <input
             type="text"
             id="urlInput"
@@ -43,6 +44,7 @@
           errorMessage
         }}</span>
       </div>
+    </div>
     </div>
   </form>
 </ics-menu>
