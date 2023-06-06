@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
     Image findByUrl(String url);
-
     List<Image> findByLabelsIn(List<Label> labels);
 
 }

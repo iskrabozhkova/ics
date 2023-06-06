@@ -32,7 +32,8 @@ public class ImageController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Image>> getAllImages(@RequestParam(required = false) List<String> labels) {
+    public ResponseEntity<List<Image>> getAllImages(
+        @RequestParam(required = false) List<String> labels) {
         try {
             if (labels != null && !labels.isEmpty()) {
                 List<Image> images = imageService.getImagesByLabels(labels);
@@ -63,6 +64,7 @@ public class ImageController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeImage(@PathVariable(value = "id") Long imageId) {
         boolean isDeletionSuccessful = imageService.deleteById(imageId);
@@ -72,5 +74,5 @@ public class ImageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found");
         }
     }
-    
+
 }

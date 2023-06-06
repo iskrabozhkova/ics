@@ -19,133 +19,135 @@ import java.util.Optional;
 
 @Service
 public class ImageService {
-    private final ImageRepository imageRepository;
-    private final LabelRepository labelRepository;
-    private final ImaggaAPI imaggaAPI;
+  private final ImageRepository imageRepository;
+  private final LabelRepository labelRepository;
+  private final ImaggaAPI imaggaAPI;
 
-    public ImageService(ImageRepository imageRepository, LabelRepository labelRepository, ImaggaAPI imaggaAPI) {
-        this.imageRepository = imageRepository;
-        this.labelRepository = labelRepository;
-        this.imaggaAPI = imaggaAPI;
+  public ImageService(ImageRepository imageRepository, LabelRepository labelRepository,
+                      ImaggaAPI imaggaAPI) {
+    this.imageRepository = imageRepository;
+    this.labelRepository = labelRepository;
+    this.imaggaAPI = imaggaAPI;
+  }
+
+  public String uploadImage(Image image) {
+    String imageUrl = image.getUrl();
+    String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
+    String responseMessage = "Error occurred.";
+
+    List<Label> labels = extractLabelsFromJson(jsonResponse);
+    if (!labels.isEmpty()) {
+      image.setLabels(labels);
+      imageRepository.save(image);
+      try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode responseObject = objectMapper.readValue(jsonResponse, ObjectNode.class);
+        responseObject.set("imageUrl", objectMapper.valueToTree(image.getUrl()));
+        responseObject.set("imageId", objectMapper.valueToTree(image.getImageId()));
+        responseMessage = objectMapper.writeValueAsString(responseObject);
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+      }
+    } else {
+      String errorMessage = extractErrorMessageFromJson(jsonResponse);
+      responseMessage = "Error: " + errorMessage;
     }
 
-    public String uploadImage(Image image) {
-        String imageUrl = image.getUrl();
-        String jsonResponse = imaggaAPI.categorizeImage(imageUrl);
-        String responseMessage = "Error occurred.";
+    return responseMessage;
+  }
 
-        List<Label> labels = extractLabelsFromJson(jsonResponse);
-        if (!labels.isEmpty()) {
-            image.setLabels(labels);
-            imageRepository.save(image);
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                ObjectNode responseObject = objectMapper.readValue(jsonResponse, ObjectNode.class);
-                responseObject.set("imageUrl", objectMapper.valueToTree(image.getUrl()));
-                responseObject.set("imageId", objectMapper.valueToTree(image.getImageId()));
-                responseMessage = objectMapper.writeValueAsString(responseObject);
-            }catch(JsonProcessingException e) {
-                e.printStackTrace();
+  private String convertImageToJson(Image image) {
+    try {
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      return objectMapper.writeValueAsString(image);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  public List<Label> extractLabelsFromJson(String jsonResponse) {
+    List<Label> labels = new ArrayList<>();
+
+    try {
+      ObjectMapper objectMapper = new ObjectMapper();
+      JsonNode responseJson = objectMapper.readTree(jsonResponse);
+
+      if (responseJson.has("result")) {
+        JsonNode resultJson = responseJson.get("result");
+        JsonNode tagsJson = resultJson.get("tags");
+
+        if (tagsJson != null) {
+          for (JsonNode tagNode : tagsJson) {
+            JsonNode tagJson = tagNode.get("tag");
+            JsonNode confidenceJson = tagNode.get("confidence");
+
+            if (tagJson != null && confidenceJson != null) {
+              String labelName = tagJson.get("en").asText();
+              Double confidence = confidenceJson.asDouble();
+
+              Label label = new Label();
+              label.setName(labelName);
+              label.setConfidence(confidence);
+              labels.add(label);
             }
-        } else {
-            String errorMessage = extractErrorMessageFromJson(jsonResponse);
-            responseMessage = "Error: " + errorMessage;
+          }
         }
-
-        return responseMessage;
-    }
-    private String convertImageToJson(Image image) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
-            return objectMapper.writeValueAsString(image);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "";
-        }
+      }
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
     }
 
-    public List<Label> extractLabelsFromJson(String jsonResponse) {
-        List<Label> labels = new ArrayList<>();
+    return labels;
+  }
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode responseJson = objectMapper.readTree(jsonResponse);
 
-            if (responseJson.has("result")) {
-                JsonNode resultJson = responseJson.get("result");
-                JsonNode tagsJson = resultJson.get("tags");
+  public String extractErrorMessageFromJson(String jsonResponse) {
+    String errorMessage = "";
 
-                if (tagsJson != null) {
-                    for (JsonNode tagNode : tagsJson) {
-                        JsonNode tagJson = tagNode.get("tag");
-                        JsonNode confidenceJson = tagNode.get("confidence");
+    try {
+      ObjectMapper objectMapper = new ObjectMapper();
+      JsonNode responseJson = objectMapper.readTree(jsonResponse);
+      JsonNode errorJson = responseJson.get("error");
 
-                        if (tagJson != null && confidenceJson != null) {
-                            String labelName = tagJson.get("en").asText();
-                            Double confidence = confidenceJson.asDouble();
-
-                            Label label = new Label();
-                            label.setName(labelName);
-                            label.setConfidence(confidence);
-                            labels.add(label);
-                        }
-                    }
-                }
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return labels;
+      if (errorJson != null) {
+        errorMessage = errorJson.get("message").asText();
+      }
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
     }
 
+    return errorMessage;
+  }
 
-    public String extractErrorMessageFromJson(String jsonResponse) {
-        String errorMessage = "";
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode responseJson = objectMapper.readTree(jsonResponse);
-            JsonNode errorJson = responseJson.get("error");
+  public List<Image> getAllImages() {
+    return imageRepository.findAll();
+  }
 
-            if (errorJson != null) {
-                errorMessage = errorJson.get("message").asText();
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return errorMessage;
+  public List<Image> getImagesByLabels(List<String> labels) {
+    List<Label> labelList = new ArrayList<>();
+    for (String labelName : labels) {
+      List<Label> foundLabels = labelRepository.findByName(labelName);
+      labelList.addAll(foundLabels);
     }
+    return imageRepository.findByLabelsIn(labelList);
+  }
 
+  public Optional<Image> getImageById(Long imageId) {
+    return imageRepository.findById(imageId);
+  }
 
-    public List<Image> getAllImages() {
-        return imageRepository.findAll();
+  public boolean deleteById(Long imageId) {
+    if (imageId == null) {
+      return false;
     }
-
-    public List<Image> getImagesByLabels(List<String> labels) {
-        List<Label> labelList = new ArrayList<>();
-        for (String labelName : labels) {
-            List<Label> foundLabels = labelRepository.findByName(labelName);
-            labelList.addAll(foundLabels);
-        }
-        return imageRepository.findByLabelsIn(labelList);
+    boolean exists = imageRepository.existsById(imageId);
+    if (!exists) {
+      return false;
     }
-
-    public Optional<Image> getImageById(Long imageId) {
-        return imageRepository.findById(imageId);
-    }
-
-    public boolean deleteById(Long imageId) {
-        if(imageId == null){
-            return false;
-        }
-        boolean exists = imageRepository.existsById(imageId);
-        if(!exists){
-            return false;
-        }
-        imageRepository.deleteById(imageId);
-        return true;
-    }
+    imageRepository.deleteById(imageId);
+    return true;
+  }
 }
