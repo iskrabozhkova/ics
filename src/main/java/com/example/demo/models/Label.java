@@ -10,15 +10,16 @@ import java.util.*;
 public class Label {
     @Id
     @SequenceGenerator(
-            name = "label_sequence",
-            sequenceName = "label_sequence",
-            allocationSize = 1
+        name = "label_sequence",
+        sequenceName = "label_sequence",
+        allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "label_sequence"
+        strategy = GenerationType.SEQUENCE,
+        generator = "label_sequence"
     )
     private Long labelId;
+
     @Column(nullable = false)
     private String name;
 
@@ -37,8 +38,7 @@ public class Label {
     @ManyToMany(mappedBy = "labels")
     private List<Image> images;
 
-    public Label() {
-    }
+    public Label() {}
 
     public Label(Long labelId, String name, Double confidence, List<Image> images) {
         this.labelId = labelId;

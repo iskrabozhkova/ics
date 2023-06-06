@@ -7,112 +7,105 @@ import java.util.List;
 
 @Entity
 @Table(
-        name = "image",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "url_unique", columnNames = "url")
-        }
+    name = "image",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "url_unique", columnNames = "url")
+    }
 )
 
 public class Image {
-    @Id
-    @SequenceGenerator(
-            name = "image_sequence",
-            sequenceName = "image_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "image_sequence"
-    )
-    private Long imageId;
-    @Column(nullable = false)
-    private String url;
-//    @Column()
-//    private String uploadedAt;
-    @Column()
-    private String analysis_service;
-    @Column()
-    private Integer width;
-    @Column()
-    private Integer height;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "image_label",
-            joinColumns = {
-                    @JoinColumn(name = "imageId", referencedColumnName = "imageId")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "labelId", referencedColumnName = "labelId")
+  @Id
+  @SequenceGenerator(
+      name = "image_sequence",
+      sequenceName = "image_sequence",
+      allocationSize = 1
+  )
+  @GeneratedValue(
+      strategy = GenerationType.SEQUENCE,
+      generator = "image_sequence"
+  )
+  private Long imageId;
 
-            }
-    )
-    private List<Label> labels;
+  @Column(nullable = false)
+  private String url;
 
-    public Image() {
-    }
+  @Column()
+  private String analysis_service;
 
-    public Image(Long imageId, String url, String analysis_service, Integer width, Integer height, List<Label> labels) {
-        this.imageId = imageId;
-        this.url = url;
-//        this.uploadedAt = uploadedAt;
-        this.analysis_service = analysis_service;
-        this.width = width;
-        this.height = height;
-        this.labels = new ArrayList<>(labels);
-    }
+  @Column()
+  private Integer width;
 
-    public Long getImageId() {
-        return imageId;
-    }
+  @Column()
+  private Integer height;
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
-    }
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(name = "image_label",
+      joinColumns = {
+          @JoinColumn(name = "imageId", referencedColumnName = "imageId")
+      },
+      inverseJoinColumns = {
+          @JoinColumn(name = "labelId", referencedColumnName = "labelId")
+      }
+  )
+  private List<Label> labels;
 
-    public String getUrl() {
-        return url;
-    }
+  public Image() {}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+  public Image(Long imageId, String url, String analysis_service, Integer width, Integer height,
+               List<Label> labels) {
+    this.imageId = imageId;
+    this.url = url;
+    this.analysis_service = analysis_service;
+    this.width = width;
+    this.height = height;
+    this.labels = new ArrayList<>(labels);
+  }
 
-//    public String getUploadedAt() {
-//        return uploadedAt;
-//    }
-//
-//    public void setUploadedAt(String uploadedAt) {
-//        this.uploadedAt = uploadedAt;
-//    }
+  public Long getImageId() {
+    return imageId;
+  }
 
-    public String getAnalysis_service() {
-        return analysis_service;
-    }
+  public void setImageId(Long imageId) {
+    this.imageId = imageId;
+  }
 
-    public void setAnalysis_service(String analysis_service) {
-        this.analysis_service = analysis_service;
-    }
+  public String getUrl() {
+    return url;
+  }
 
-    public Integer getWidth() {
-        return width;
-    }
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+  public String getAnalysis_service() {
+    return analysis_service;
+  }
 
-    public Integer getHeight() {
-        return height;
-    }
+  public void setAnalysis_service(String analysis_service) {
+    this.analysis_service = analysis_service;
+  }
 
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
+  public Integer getWidth() {
+    return width;
+  }
 
-    public List<Label> getLabels() {
-        return new ArrayList<>(labels);
-    }
+  public void setWidth(Integer width) {
+    this.width = width;
+  }
 
-    public void setLabels(List<Label> labels) {
-        this.labels = new ArrayList<>(labels);
-    }
+  public Integer getHeight() {
+    return height;
+  }
+
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
+
+  public List<Label> getLabels() {
+    return new ArrayList<>(labels);
+  }
+
+  public void setLabels(List<Label> labels) {
+    this.labels = new ArrayList<>(labels);
+  }
 }

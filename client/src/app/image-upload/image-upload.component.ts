@@ -61,7 +61,7 @@ export class ImageUploadComponent {
           this.isLoading = false;
           console.log(error);
           this.errorMessage =
-            'An error occurred while uploading the image. Please try again later.';
+            'This image already exists in the gallery. Please enter another one.';
         },
         complete: () => {
           this.isLoading = false;

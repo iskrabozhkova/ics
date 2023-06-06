@@ -18,7 +18,7 @@
     </div>
 
     <div class="label-container">
-      <h5>Labels:</h5>
+      <h5>Labels</h5>
       <ng-container
         *ngFor="let label of image.labels | slice : 0 : 6; let i = index"
       >
@@ -32,7 +32,7 @@
         ></clr-progress-bar>
       </ng-container>
       <div class="card-footer">
-        <h5>Url:</h5>
+        <h5>Image url</h5>
         <p class="image-prop">{{ image.url }}</p>
         <h5>Width</h5>
         <p class="image-prop">{{ image.width }}</p>
